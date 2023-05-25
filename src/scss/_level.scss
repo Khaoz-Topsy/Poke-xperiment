@@ -1,0 +1,241 @@
+.level-container {
+    position: relative;
+    // padding: 3px;
+    border: 5px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    transform: scale(var(--level-scale, 1));
+    transition: transform 250ms ease-in-out;
+    overflow: hidden;
+    z-index: 100;
+
+    &:hover {
+        .controls {
+            opacity: 1;
+        }
+    }
+
+    .level-bg {
+        .content {
+            width: calc(var(--num-columns) * var(--sprite-item-cell-size));
+            height: calc(var(--num-rows) * var(--sprite-item-cell-size));
+            border-radius: 3px;
+        }
+    }
+
+    .level-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        // margin: 3px;
+
+        &.editor-paste {
+            display: grid;
+            grid-template-columns: repeat(var(--num-columns), var(--sprite-item-cell-size));
+            grid-template-rows: repeat(var(--num-rows), var(--sprite-item-cell-size));
+
+            &.walkable {
+                .sprite-tile:after {
+                    border-color: rgb(255, 80, 80);
+                }
+            }
+        }
+
+        &.not-active {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .level-tile,
+        .walkable-tile {
+            position: absolute;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+        .walkable-tile {
+            border-radius: 2px;
+        }
+    }
+
+    .controls {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 3px;
+        opacity: 0;
+        transition: opacity 250ms ease-in-out;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.controls {
+    z-index: 1000;
+
+    > *:focus {
+        box-shadow: none;
+    }
+}
+
+.builder {
+    &.disable-layer-level-opacity {
+        .level-layer.not-active {
+            opacity: 1;
+        }
+    }
+
+    &.show-layer-container-overflow {
+        .level-container {
+            overflow: visible;
+        }
+    }
+
+    &.show-3d .level-container {
+        overflow: visible;
+        transform: rotate(20deg) skew(-25deg);
+
+        .level-layer {
+            opacity: 1;
+            transform: translate(calc(var(--layer-position) * -1), calc(var(--layer-position) * -1));
+        }
+    }
+
+    .level-tile,
+    .sprite-tile,
+    .walkable-tile {
+        &:after {
+            content: " ";
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.25);
+            border-color: rgb(80, 80, 80);
+            border-radius: 2px;
+            border-style: dashed;
+            border-width: 2px;
+            opacity: 0;
+            transition: opacity 250ms ease;
+        }
+
+        &:hover:after {
+            opacity: 0.5;
+        }
+
+        &.is-active:after {
+            opacity: 1;
+        }
+
+        &.is-active {
+            z-index: 9999;
+
+            &:after {
+                // border-color: $satisfactoryPrimaryColour;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+$layerControlWidth: 120px;
+
+.layer-controls-container {
+    position: absolute;
+    top: 5vh;
+    right: 0.5em;
+    bottom: 20vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: calc($layerControlWidth + 1em);
+    z-index: 1001;
+
+    .layer-controls {
+        width: $layerControlWidth;
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+
+        .settings {
+            cursor: pointer;
+            font-size: 150%;
+        }
+
+        .layer-select {
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            min-height: 75px;
+            padding: 0.5em;
+            transition: transform 250ms ease;
+            cursor: pointer;
+
+            &.is-active {
+                border-color: $linkColour;
+            }
+
+            &:hover {
+                transform: translateX(-0.5em);
+            }
+        }
+    }
+}
+
+.drag-overlay {
+    .level-tile {
+        // position: relative;
+        // top: 0;
+        // left: 0;
+        transform: translate(1em, 1em) scale(var(--level-scale, 1));
+    }
+}
+
+.sprite-map {
+    .definition-block,
+    .definition-sprite-map {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .definition-block {
+        background-color: rgba(255, 0, 0, 0.2);
+        border: 3px dashed rgba(255, 0, 0, 0.8);
+        border-radius: 5px;
+        transition: transform 100ms ease-in-out;
+    }
+
+    .definition-sprite-map {
+        max-width: unset;
+    }
+
+    .sprite-mapper-tile {
+        cursor: pointer;
+
+        &.active {
+            .card {
+                padding: calc(1em - 5px);
+                border: 5px dashed darkgray;
+            }
+        }
+
+        .card {
+            padding: 1em;
+        }
+
+        .sprite {
+            height: 50px;
+            width: 50px;
+            margin-right: 1em;
+
+            &.size-1-1 {
+                transform: scale(2);
+            }
+        }
+
+        .details {
+            justify-content: center;
+        }
+    }
+}
