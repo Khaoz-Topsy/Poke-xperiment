@@ -2,7 +2,7 @@
   
   # Pok-é-xperiment
   ### A silly little experiment to make web based (Poké*** look-a-like)  
-  ![header](https://raw.githubusercontent.com/Khaoz-Topsy/Khaoz-Topsy/master/.github/header.svg?raw=true)
+  ![header](https://raw.githubusercontent.com/Khaoz-Topsy/Poke-xperiment/main/.github/header.svg?raw=true)
   
   <br />
   
