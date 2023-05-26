@@ -27,12 +27,14 @@ I grew up with the top down pokemon games like [Pokemon Emerald](https://bulbape
 - Layering simple sprites on a "map" to create the world
   - e.g. There are grass tiles as the background and items like houses and plants that the player walks in front of. There are also situations where the player can go behind objects which creates the perception of a 3D world represented in a 2D way
 - Loading and using a "Sprite map"
-  - Basically one large image with all items and then either using parts of that image or cutting out the image pieces on the front-end
+  - One large image with all items and then either using parts of that image or cutting out the image pieces on the front-end
 - Tools for creating the levels
-  - Level builder: Manage placing items, layers, interactions, etc
+  - Level builder: Manage placing of items, layers, interactions, etc
   - Sprite mapper: Easy way to mark where a sprite item starts and ends
 - Exporting a SolidJS project to a WebComponent using [Solid Element](https://www.npmjs.com/package/solid-element)
-  - I had the idea of exporting this "game" as a webcomponent a bit late, otherwise I would have written it in something more appropriate like Svelte or Lit 😅
+  - I had the idea of exporting this "game" as a webcomponent a bit late, else I would have written it in something more appropriate like Svelte or Lit 😅
+- A little bit of multiplayer, seeing others walking around realtime with [PeerJS](https://peerjs.com)
+
 
 ---
 
