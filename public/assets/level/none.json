@@ -1,0 +1,15 @@
+{
+    "id": "newLvl",
+    "name": "Getting Started",
+    "sizeX": 800,
+    "sizeY": 800,
+    "defaultBackgroundTile": "grass1",
+    "nonWalkableTiles": [],
+    "layers": [
+        {
+            "id": "bg",
+            "name": "background",
+            "items": []
+        }
+    ]
+}
