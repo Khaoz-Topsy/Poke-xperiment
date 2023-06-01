@@ -1,0 +1,40 @@
+$layerControlWidth: 120px;
+
+.layer-controls-container {
+    position: absolute;
+    top: 5vh;
+    right: 0.5em;
+    bottom: 20vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: calc($layerControlWidth + 1em);
+    z-index: 1001;
+
+    .layer-controls {
+        width: $layerControlWidth;
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+
+        .settings {
+            cursor: pointer;
+            font-size: 150%;
+        }
+
+        .layer-select {
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            min-height: 75px;
+            padding: 0.5em;
+            transition: transform 250ms ease;
+            cursor: pointer;
+
+            &.is-active {
+                border-color: $linkColour;
+            }
+
+            &:hover {
+                transform: translateX(-0.5em);
+            }
+        }
+    }
+}

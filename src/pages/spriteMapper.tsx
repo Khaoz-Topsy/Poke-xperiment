@@ -1,40 +1,19 @@
-import { Box, Image, Center, Container, Flex, Tab, TabList, TabPanel, Tabs, Text, Textarea, VStack, Input, Button, Spacer, Grid, GridItem, HStack, FormControl, FormLabel } from '@hope-ui/solid';
-import classNames from "classnames";
-import Mousetrap from 'mousetrap';
-import { Component, For, Show, createSignal, onCleanup, onMount } from 'solid-js';
+import { Box, Button, Center, Container, Flex, Grid, HStack, Image, Input, Tab, TabList, TabPanel, Tabs, Text, Textarea, VStack } from '@hope-ui/solid';
+import { Component, For, Show, createSignal } from 'solid-js';
 
-import { CommonLayout } from '../components/common/layout';
-import { CenterLoading } from '../components/core/loading';
-import { LevelContainer } from '../components/level/levelContainer';
-import { LevelControlPasteGrid } from '../components/level/levelControlPasteGrid';
-import { LevelControlSpriteItem } from '../components/level/levelControlSpriteItem';
-import { LevelItem } from '../components/level/levelItem';
-import { LevelLayer } from '../components/level/levelLayer';
-import { LevelLayerControl } from '../components/level/levelLayerControl';
-import { LevelSelectorModal } from '../components/level/levelSelector';
-import { WalkableItem } from '../components/level/walkableItem';
-import { NetworkState } from '../constants/enum/networkState';
-import { Level, layerCssClassOptions, unitInPx } from '../constants/game';
-import { knownKeybinds } from '../constants/keybind';
-import { ILevelCoord } from '../contracts/levelCoord';
-import { ILevelData } from '../contracts/levelData';
-import { ILevelLayer } from '../contracts/levelLayer';
-import { ILevelTile } from '../contracts/levelTile';
-import { ILevelWalkable } from '../contracts/levelWalkable';
-import { SpriteItemType } from '../contracts/spriteItem';
-import { ISpriteMapLookup, ISpriteMapLookupContainer } from '../contracts/spriteMapLookup';
-import { uuidv4 } from '../helper/guidHelper';
-import { stringInputPopup } from '../helper/popupHelper';
-import { addLayerMapper, addSpriteToMapMapper, handleWalkableGridSelectMapper, removeSpriteFromMapMapper, removeWalkableGridItemMapper } from '../mapper/levelData';
-import { getLevelServ } from '../services/internal/levelService';
-import { getSpriteMapServ } from '../services/internal/spriteMapService';
-import { getScale } from '../services/store/sections/userState';
-import { getStateService } from '../services/store/stateService';
-import { PageHeader } from '../components/common/pageHeader';
-import { anyObject } from '../helper/typescriptHacks';
 import { Card } from '../components/common/card';
 import { DottedBorder } from '../components/common/dottedBorder';
-import { readFileAsync } from '../helper/fileHelper';
+import { CommonLayout } from '../components/common/layout';
+import { PageHeader } from '../components/common/pageHeader';
+import { SpriteMapperForm } from '../components/form/spriteMapperForm';
+import { SpriteMapperTile } from '../components/tile/spriteMapperTile';
+import { unitInPx } from '../constants/game';
+import { SpriteItemType } from '../contracts/spriteItem';
+import { ISpriteMapLookup, ISpriteMapLookupContainer } from '../contracts/spriteMapLookup';
+import { copyToClipboard, preventDefault } from '../helper/documentHelper';
+import { readFileAsync, readImageFileAsync } from '../helper/fileHelper';
+import { anyObject } from '../helper/typescriptHacks';
+import { getSpriteMapServ } from '../services/internal/spriteMapService';
 
 export const SpriteMapperPage: Component = () => {
 
@@ -42,17 +21,27 @@ export const SpriteMapperPage: Component = () => {
     let elemJson: HTMLInputElement | undefined;
 
     const [step, setStep] = createSignal<number>(0);
+    const [zoomPerc, setZoomPerc] = createSignal<number>(100);
     const [tabIndex, setTabIndex] = createSignal<number>(0);
     const [spriteMapContainer, setSpriteMapContainer] = createSignal<ISpriteMapLookupContainer>(anyObject);
     const [spriteMapSrc, setSpriteMapSrc] = createSignal<string>();
     const [selectedDefinition, setSelectedDefinition] = createSignal<ISpriteMapLookup>();
 
-    const onUploadSpriteMap = (event: any) => {
+    const onUploadSpriteMap = async (event: any) => {
         if (!event.target.files || event.target.files.length === 0) {
             return;
         }
 
-        setSpriteMapSrc(URL.createObjectURL(event.target.files[0]));
+        const file = event.target.files[0];
+        const fileUrl = URL.createObjectURL(file);
+        setSpriteMapSrc(fileUrl);
+        // const imgData = await readImageFileAsync(file)
+        // setSpriteMapContainer((prev) => ({
+        //     ...prev,
+        //     width: imgData.width,
+        //     height: imgData.height,
+        // }))
+        // setTabIndex(2);
         event.target.value = null;
     }
 
@@ -70,6 +59,13 @@ export const SpriteMapperPage: Component = () => {
         event.target.value = null;
     }
 
+    const navigateToEditStep = async () => {
+        if (spriteMapContainer() == null || spriteMapSrc() == null) return;
+
+        await getSpriteMapServ().loadSpriteMap(spriteMapContainer(), spriteMapSrc()!);
+        setStep(1);
+    }
+
     const editSelectedDefinition = (propsName: string) => (event: any) => {
         const value = event?.target?.value;
         if (value == null) return;
@@ -80,24 +76,54 @@ export const SpriteMapperPage: Component = () => {
         }));
     }
 
-    const renderFormItem = (renderProps: {
-        title: string;
-        type: string;
-        propName: string;
-        placeholder: string;
-    }) => {
-        return (
-            <FormControl>
-                <FormLabel>{renderProps.title}</FormLabel>
-                <Input
-                    type={renderProps.type}
-                    name={renderProps.propName}
-                    value={(selectedDefinition() as any)?.[renderProps.propName] ?? ''}
-                    onChange={editSelectedDefinition(renderProps.propName)}
-                    placeholder={renderProps.placeholder}
-                />
-            </FormControl>
-        );
+    const addDefinition = () => {
+        setSpriteMapContainer((prev: ISpriteMapLookupContainer) => {
+            const newDefinitions = [...prev.definitions, selectedDefinition()!];
+            return ({
+                ...prev,
+                definitions: orderDefinitions(newDefinitions),
+            });
+        });
+    }
+
+    const editDefinition = () => {
+        setSpriteMapContainer((prev: ISpriteMapLookupContainer) => {
+            const selectedDef = selectedDefinition();
+            if (selectedDef == null) return prev;
+
+            const newDefinitions = prev.definitions.map(def => {
+                if (def.type == selectedDef.type) return selectedDef;
+                return def;
+            });
+
+            return ({
+                ...prev,
+                definitions: orderDefinitions(newDefinitions),
+            });
+        });
+    }
+
+    const orderDefinitions = (definitions: Array<ISpriteMapLookup>): Array<ISpriteMapLookup> => {
+        // const width = spriteMapContainer().width ?? 100;
+
+        return definitions.sort((a: ISpriteMapLookup, b: ISpriteMapLookup) => {
+            // const aRank = a.x + (a.y * width);
+            // const bRank = b.x + (b.y * width);
+            return (a.type > b.type) ? 1 : ((b.type > a.type) ? -1 : 0);
+        });
+    }
+
+    const removeDefinition = (type: SpriteItemType) => (event: any) => {
+        preventDefault(event);
+        setSpriteMapContainer((prev: ISpriteMapLookupContainer) => ({
+            ...prev,
+            definitions: prev.definitions.filter(d => d.type != type)
+        }));
+    }
+
+    const copyJsonSpriteMap = () => {
+        const json = JSON.stringify(spriteMapContainer(), null, 2);
+        copyToClipboard(json);
     }
 
     return (
@@ -190,23 +216,30 @@ export const SpriteMapperPage: Component = () => {
                                 </Box>
                             </Flex>
                             <Center>
-                                <Button mt="2em" width="50%" onClick={() => setStep(1)}>Next step</Button>
+                                <Button mt="2em" width="50%" onClick={navigateToEditStep}>Next step</Button>
                             </Center>
                         </Container>
                     </Show>
                     <Show when={step() == 1}>
                         <Container pb="2em">
                             <Flex gap="1em" px="1em" minH="50vh" maxH="75vh">
-                                <Box flex={1} position="relative" overflowY="auto">
-                                    <Image src={spriteMapSrc()} class="definition-sprite-map" alt="upload image" />
-                                    <Show when={selectedDefinition() != null}>
-                                        <div class="definition-block" style={{
-                                            width: `${selectedDefinition()!.width * unitInPx}px`,
-                                            height: `${selectedDefinition()!.height * unitInPx}px`,
-                                            transform: `translate(${selectedDefinition()!.x}px, ${selectedDefinition()!.y}px)`
-                                        }}></div>
-                                    </Show>
-                                </Box>
+                                <VStack flex={1}>
+                                    <HStack mb="0.5em">
+                                        <Button variant="subtle" onClick={() => setZoomPerc(prev => prev + 10)}>Zoom in</Button>
+                                        <Button variant="ghost" mx="0.5em" disabled>{zoomPerc()}%</Button>
+                                        <Button variant="subtle" onClick={() => setZoomPerc(prev => prev - 10)}>Zoom out</Button>
+                                    </HStack>
+                                    <Box flexGrow={1} position="relative" width="100%" overflowY="auto" style={{ zoom: `${zoomPerc()}%` }}>
+                                        <Image src={spriteMapSrc()} class="definition-sprite-map" alt="upload image" />
+                                        <Show when={selectedDefinition() != null}>
+                                            <div class="definition-block" style={{
+                                                width: `${selectedDefinition()!.width * unitInPx}px`,
+                                                height: `${selectedDefinition()!.height * unitInPx}px`,
+                                                transform: `translate(${selectedDefinition()!.x}px, ${selectedDefinition()!.y}px)`
+                                            }}></div>
+                                        </Show>
+                                    </Box>
+                                </VStack>
                                 <Box flex={1} overflowY="auto">
                                     <Card>
                                         <Tabs fitted variant="pills">
@@ -218,86 +251,30 @@ export const SpriteMapperPage: Component = () => {
                                                 <Grid templateColumns="repeat(2, 1fr)" gap="$6">
                                                     <For each={spriteMapContainer().definitions}>
                                                         {(definition) => (
-                                                            <GridItem class={classNames('sprite-mapper-tile', { 'active': definition.type == selectedDefinition()?.type })} onClick={() => setSelectedDefinition(definition)}>
-                                                                <Card overflowY="hidden">
-                                                                    <Flex>
-                                                                        <Center class={`sprite size-${definition.width}-${definition.width}`}>
-                                                                            <LevelControlSpriteItem
-                                                                                {...definition}
-                                                                                isActive={false}
-                                                                                onClick={() => { }}
-                                                                            />
-                                                                        </Center>
-                                                                        <VStack class="details">
-                                                                            <Text>{definition.type}</Text>
-                                                                        </VStack>
-                                                                    </Flex>
-                                                                </Card>
-                                                            </GridItem>
+                                                            <SpriteMapperTile
+                                                                definition={definition}
+                                                                selectedDefinition={selectedDefinition()}
+                                                                setSelectedDefinition={(newDef: ISpriteMapLookup) => setSelectedDefinition(newDef)}
+                                                                removeDefinition={removeDefinition(definition.type)}
+                                                            />
                                                         )}
                                                     </For>
                                                 </Grid>
                                             </TabPanel>
                                             <TabPanel>
-                                                <VStack
-                                                    spacing="$5"
-                                                    alignItems="stretch"
-                                                    mx="auto"
-                                                >
-                                                    {renderFormItem({
-                                                        type: 'text',
-                                                        title: 'Type',
-                                                        propName: 'type',
-                                                        placeholder: 'grass1'
-                                                    })}
-                                                    <HStack>
-                                                        {renderFormItem({
-                                                            type: 'number',
-                                                            title: 'X position',
-                                                            propName: 'x',
-                                                            placeholder: '16'
-                                                        })}
-                                                        <Box m="3px"></Box>
-                                                        {renderFormItem({
-                                                            type: 'number',
-                                                            title: 'Y position',
-                                                            propName: 'y',
-                                                            placeholder: '16'
-                                                        })}
-                                                    </HStack>
-                                                    <HStack>
-                                                        {renderFormItem({
-                                                            type: 'number',
-                                                            title: 'Width (cells)',
-                                                            propName: 'width',
-                                                            placeholder: '1'
-                                                        })}
-                                                        <Box m="3px"></Box>
-                                                        {renderFormItem({
-                                                            type: 'number',
-                                                            title: 'Height (cells)',
-                                                            propName: 'height',
-                                                            placeholder: '1'
-                                                        })}
-                                                    </HStack>
-                                                </VStack>
+                                                <SpriteMapperForm
+                                                    selectedDefinition={selectedDefinition()}
+                                                    editSelectedDefinition={editSelectedDefinition}
+                                                    editDefinition={editDefinition}
+                                                    addDefinition={addDefinition}
+                                                />
                                             </TabPanel>
                                         </Tabs>
-                                        {/* {
-            "type": "grass1",
-            "tags": [
-                "grass"
-            ],
-            "x": 16,
-            "y": 0,
-            "width": 1,
-            "height": 1
-        } */}
                                     </Card>
                                 </Box>
                             </Flex>
                             <Center>
-                                <Button mt="2em" width="50%" onClick={() => setStep(2)}>Next step</Button>
+                                <Button mt="2em" width="50%" onClick={copyJsonSpriteMap}>Copy JSON</Button>
                             </Center>
                         </Container>
                     </Show>

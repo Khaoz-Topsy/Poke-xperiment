@@ -31,7 +31,7 @@ export const AppShell: Component = () => {
 
     onMount(() => {
         const allPromises = [
-            getSpriteMapServ().loadSpriteMap(),
+            getSpriteMapServ().loadDefaultSpriteMap(),
             getSpriteMapServ().loadCharacterSprites(charIndex()),
         ];
         Promise.all(allPromises)

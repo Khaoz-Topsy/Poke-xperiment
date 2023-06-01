@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { SpriteItemType } from "../../contracts/spriteItem";
 import { unitInPx } from "../../constants/game";
 
-interface IProps {
+interface ILevelControlSpriteItemProps {
     type: SpriteItemType;
     isActive: boolean;
     width: number;
@@ -12,7 +12,7 @@ interface IProps {
     onClick: (isActive: boolean, type: SpriteItemType) => void;
 }
 
-export const LevelControlSpriteItem: Component<IProps> = (props: IProps) => {
+export const LevelControlSpriteItem: Component<ILevelControlSpriteItemProps> = (props: ILevelControlSpriteItemProps) => {
 
     return (
         <div

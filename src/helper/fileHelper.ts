@@ -12,3 +12,20 @@ export const readFileAsync = (file: any): Promise<any> => {
         reader.readAsText(file);
     })
 }
+
+export const readImageFileAsync = (file: any): Promise<{ width: number, height: number }> => {
+    const url = URL.createObjectURL(file);
+
+    return new Promise((resolve, reject) => {
+        const img = new Image;
+
+        img.onload = () => {
+            resolve({
+                width: img.width,
+                height: img.height,
+            });
+        };
+
+        img.src = url;
+    })
+}

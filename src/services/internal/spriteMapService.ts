@@ -10,7 +10,7 @@ export class SpriteMapService {
 
     loadAllSprites = async () => {
         return Promise.all([
-            this.loadSpriteMap,
+            this.loadDefaultSpriteMap,
         ]);
     }
 
@@ -19,16 +19,24 @@ export class SpriteMapService {
             return this.spriteMapLookupContainer;
         }
 
-        return this.loadSpriteMap();
+        return this.loadDefaultSpriteMap();
     }
 
-    loadSpriteMap = async (): Promise<ISpriteMapLookupContainer> => {
+    loadDefaultSpriteMap = async (): Promise<ISpriteMapLookupContainer> => {
         const spriteSourceJson: string = '/assets/tileset/default.json';
         const spriteMapResp = await fetch(spriteSourceJson);
         const spriteMap: ISpriteMapLookupContainer = await spriteMapResp.json();
 
         const spriteSource: string = '/assets/tileset/default.png';
-        //spriteMapLookup().source ?? (defaultSpriteMap.source!);
+        const spriteMapObj = await this.loadSpriteMap(spriteMap, spriteSource);
+        return spriteMapObj;
+    }
+
+    loadSpriteMap = async (
+        spriteMap: ISpriteMapLookupContainer,
+        spriteSource: string,
+    ): Promise<ISpriteMapLookupContainer> => {
+
         cutImageFromOtherImage(
             spriteSource,
             (image: HTMLImageElement) => {

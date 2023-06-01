@@ -30,6 +30,7 @@ import { getLevelServ } from '../services/internal/levelService';
 import { getSpriteMapServ } from '../services/internal/spriteMapService';
 import { getScale } from '../services/store/sections/userState';
 import { getStateService } from '../services/store/stateService';
+import { copyToClipboard } from '../helper/documentHelper';
 
 export const LevelBuilderPage: Component = () => {
     const stateRef = getStateService();
@@ -152,10 +153,8 @@ export const LevelBuilderPage: Component = () => {
     }
 
     const copyJsonLevel = () => {
-        try {
-            const json = JSON.stringify(levelData(), null, 2);
-            navigator?.clipboard?.writeText?.(json);
-        } catch { }
+        const json = JSON.stringify(levelData(), null, 2);
+        copyToClipboard(json);
     }
 
     const handleWalkableGridSelect = (colIndex: number, rowIndex: number) => {

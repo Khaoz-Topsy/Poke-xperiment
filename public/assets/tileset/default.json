@@ -4,10 +4,134 @@
     "gridpxPerCell": 16,
     "definitions": [
         {
-            "type": "unknown",
-            "tags": [],
-            "x": 0,
+            "type": "bush1",
+            "tags": [
+                "grass",
+                "bush"
+            ],
+            "x": 689,
             "y": 0,
+            "width": 2,
+            "height": 2
+        },
+        {
+            "type": "bush2",
+            "tags": [
+                "grass",
+                "bush"
+            ],
+            "x": 721,
+            "y": 0,
+            "width": 2,
+            "height": 2
+        },
+        {
+            "type": "choppedTrunk1",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": "352",
+            "y": 144,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "elevatedPath1bc",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": 176,
+            "y": 144,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "elevatedPath1bl",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": 160,
+            "y": 144,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "elevatedPath1br",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": 192,
+            "y": 144,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "elevatedPath1cc",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": 176,
+            "y": 128,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "elevatedPath1cl",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": 160,
+            "y": 128,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "elevatedPath1cr",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": 192,
+            "y": 128,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "elevatedPath1tc",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": 176,
+            "y": 112,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "elevatedPath1tl",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": 160,
+            "y": 112,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "elevatedPath1tr",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": 192,
+            "y": 112,
             "width": 1,
             "height": 1
         },
@@ -46,8 +170,8 @@
             "tags": [
                 "grass"
             ],
-            "x": 60,
-            "y": 0,
+            "x": "64",
+            "y": "0",
             "width": 1,
             "height": 1
         },
@@ -56,8 +180,118 @@
             "tags": [
                 "grass"
             ],
-            "x": 72,
+            "x": "78",
             "y": 0,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "grassFlower1",
+            "tags": [
+                "grass"
+            ],
+            "x": 16,
+            "y": 32,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "grassFlower2",
+            "tags": [
+                "grass"
+            ],
+            "x": 32,
+            "y": 32,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "grassFlower3",
+            "tags": [
+                "grass"
+            ],
+            "x": 48,
+            "y": 32,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "grassFlower4",
+            "tags": [
+                "grass"
+            ],
+            "x": 60,
+            "y": 32,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "grassFlower5",
+            "tags": [
+                "grass"
+            ],
+            "x": 72,
+            "y": 32,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "grassFlowerLong1",
+            "tags": [
+                "grass"
+            ],
+            "x": 96,
+            "y": 32,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "grassFlowerLong2",
+            "tags": [
+                "grass"
+            ],
+            "x": 112,
+            "y": 32,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "grassFlowerLong3",
+            "tags": [
+                "grass"
+            ],
+            "x": 128,
+            "y": 32,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "grassFlowerShroom1",
+            "tags": [
+                "grass"
+            ],
+            "x": 144,
+            "y": 32,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "grassFlowerShroom2",
+            "tags": [
+                "grass"
+            ],
+            "x": 160,
+            "y": 32,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "grassFlowerShroom3",
+            "tags": [
+                "grass"
+            ],
+            "x": 176,
+            "y": 32,
             "width": 1,
             "height": 1
         },
@@ -232,112 +466,465 @@
             "height": 1
         },
         {
-            "type": "grassFlower1",
+            "type": "house1",
             "tags": [
-                "grass"
+                "building"
             ],
-            "x": 16,
-            "y": 32,
+            "x": 80,
+            "y": 176,
+            "width": 4,
+            "height": 5
+        },
+        {
+            "type": "house2",
+            "tags": [
+                "building"
+            ],
+            "x": 0,
+            "y": 256,
+            "width": 4,
+            "height": 5
+        },
+        {
+            "type": "house3",
+            "tags": [
+                "building"
+            ],
+            "x": 128,
+            "y": 256,
+            "width": 4,
+            "height": 5
+        },
+        {
+            "type": "leaves1",
+            "tags": [
+                "grass",
+                "leaves"
+            ],
+            "x": 656,
+            "y": 16,
             "width": 1,
             "height": 1
         },
         {
-            "type": "grassFlower2",
+            "type": "leaves2",
             "tags": [
-                "grass"
+                "grass",
+                "leaves"
             ],
-            "x": 32,
-            "y": 32,
+            "x": 672,
+            "y": 0,
             "width": 1,
             "height": 1
         },
         {
-            "type": "grassFlower3",
+            "type": "leaves3",
             "tags": [
+                "grass",
+                "leaves"
+            ],
+            "x": 672,
+            "y": 16,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "office1",
+            "tags": [
+                "building"
+            ],
+            "x": 192,
+            "y": 210,
+            "width": 8,
+            "height": 9
+        },
+        {
+            "type": "office2",
+            "tags": [
+                "building"
+            ],
+            "x": 322,
+            "y": 210,
+            "width": 6,
+            "height": 12
+        },
+        {
+            "type": "path1Full",
+            "tags": [
+                "path",
                 "grass"
             ],
             "x": 48,
-            "y": 32,
+            "y": 144,
             "width": 1,
             "height": 1
         },
         {
-            "type": "grassFlower4",
+            "type": "path1FullInner",
             "tags": [
+                "path",
                 "grass"
             ],
-            "x": 60,
-            "y": 32,
+            "x": 64,
+            "y": 144,
             "width": 1,
             "height": 1
         },
         {
-            "type": "grassFlower5",
+            "type": "path1Innerbc",
             "tags": [
+                "path",
                 "grass"
             ],
-            "x": 72,
-            "y": 32,
+            "x": 16,
+            "y": 144,
             "width": 1,
             "height": 1
         },
         {
-            "type": "grassFlowerLong1",
+            "type": "path1Innerbl",
             "tags": [
+                "path",
                 "grass"
             ],
-            "x": 96,
-            "y": 32,
+            "x": 0,
+            "y": 144,
             "width": 1,
             "height": 1
         },
         {
-            "type": "grassFlowerLong2",
+            "type": "path1Innerbr",
             "tags": [
+                "path",
                 "grass"
             ],
-            "x": 112,
-            "y": 32,
+            "x": 32,
+            "y": 144,
             "width": 1,
             "height": 1
         },
         {
-            "type": "grassFlowerLong3",
+            "type": "path1Innercc",
             "tags": [
+                "path",
                 "grass"
+            ],
+            "x": 16,
+            "y": 128,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path1Innercl",
+            "tags": [
+                "path",
+                "grass"
+            ],
+            "x": 0,
+            "y": 128,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path1Innercr",
+            "tags": [
+                "path",
+                "grass"
+            ],
+            "x": 32,
+            "y": 128,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path1Innertc",
+            "tags": [
+                "path",
+                "grass"
+            ],
+            "x": 16,
+            "y": 112,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path1Innertl",
+            "tags": [
+                "path",
+                "grass"
+            ],
+            "x": 0,
+            "y": 112,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path1Innertr",
+            "tags": [
+                "path",
+                "grass"
+            ],
+            "x": 32,
+            "y": 112,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path1Outerbl",
+            "tags": [
+                "path",
+                "grass"
+            ],
+            "x": 48,
+            "y": 128,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path1Outerbr",
+            "tags": [
+                "path",
+                "grass"
+            ],
+            "x": 64,
+            "y": 128,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path1Outertl",
+            "tags": [
+                "path",
+                "grass"
+            ],
+            "x": 48,
+            "y": 112,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path1Outertr",
+            "tags": [
+                "path",
+                "grass"
+            ],
+            "x": 64,
+            "y": 112,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path2Full",
+            "tags": [
+                "path",
+                "brick"
             ],
             "x": 128,
-            "y": 32,
+            "y": 144,
             "width": 1,
             "height": 1
         },
         {
-            "type": "grassFlowerShroom1",
+            "type": "path2FullInner",
             "tags": [
-                "grass"
+                "path",
+                "brick"
             ],
             "x": 144,
-            "y": 32,
+            "y": 144,
             "width": 1,
             "height": 1
         },
         {
-            "type": "grassFlowerShroom2",
+            "type": "path2Innerbc",
             "tags": [
-                "grass"
+                "path",
+                "brick"
             ],
-            "x": 160,
-            "y": 32,
+            "x": 96,
+            "y": 144,
             "width": 1,
             "height": 1
         },
         {
-            "type": "grassFlowerShroom3",
+            "type": "path2Innerbl",
             "tags": [
-                "grass"
+                "path",
+                "brick"
             ],
-            "x": 176,
-            "y": 32,
+            "x": 80,
+            "y": 144,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path2Innerbr",
+            "tags": [
+                "path",
+                "brick"
+            ],
+            "x": 112,
+            "y": 144,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path2Innercc",
+            "tags": [
+                "path",
+                "brick"
+            ],
+            "x": 96,
+            "y": 128,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path2Innercl",
+            "tags": [
+                "path",
+                "brick"
+            ],
+            "x": 80,
+            "y": 128,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path2Innercr",
+            "tags": [
+                "path",
+                "brick"
+            ],
+            "x": 112,
+            "y": 128,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path2Innertc",
+            "tags": [
+                "path",
+                "brick"
+            ],
+            "x": 96,
+            "y": 112,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path2Innertl",
+            "tags": [
+                "path",
+                "brick"
+            ],
+            "x": 80,
+            "y": 112,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path2Innertr",
+            "tags": [
+                "path",
+                "brick"
+            ],
+            "x": 112,
+            "y": 112,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path2Outerbl",
+            "tags": [
+                "path",
+                "brick"
+            ],
+            "x": 128,
+            "y": 128,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path2Outerbr",
+            "tags": [
+                "path",
+                "brick"
+            ],
+            "x": 144,
+            "y": 128,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path2Outertl",
+            "tags": [
+                "path",
+                "brick"
+            ],
+            "x": 128,
+            "y": 112,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "path2Outertr",
+            "tags": [
+                "path",
+                "brick"
+            ],
+            "x": 144,
+            "y": 112,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "pokeCenter1",
+            "tags": [
+                "building"
+            ],
+            "x": 0,
+            "y": 160,
+            "width": 5,
+            "height": 6
+        },
+        {
+            "type": "tree1",
+            "tags": [
+                "tree"
+            ],
+            "x": 624,
+            "y": 0,
+            "width": 1,
+            "height": 2
+        },
+        {
+            "type": "tree2",
+            "tags": [
+                "tree"
+            ],
+            "x": 640,
+            "y": 0,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "tree3",
+            "tags": [
+                "tree"
+            ],
+            "x": 640,
+            "y": 16,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "tree4",
+            "tags": [
+                "tree"
+            ],
+            "x": 656,
+            "y": 0,
             "width": 1,
             "height": 1
         },
@@ -350,6 +937,36 @@
             "y": 0,
             "width": 3,
             "height": 3
+        },
+        {
+            "type": "treeLarge10",
+            "tags": [
+                "tree"
+            ],
+            "x": 320,
+            "y": 48,
+            "width": 3,
+            "height": 4
+        },
+        {
+            "type": "treeLarge11",
+            "tags": [
+                "tree"
+            ],
+            "x": 368,
+            "y": 48,
+            "width": 3,
+            "height": 4
+        },
+        {
+            "type": "treeLarge12",
+            "tags": [
+                "tree"
+            ],
+            "x": 416,
+            "y": 48,
+            "width": 3,
+            "height": 4
         },
         {
             "type": "treeLarge2",
@@ -432,36 +1049,6 @@
             "height": 4
         },
         {
-            "type": "treeLarge10",
-            "tags": [
-                "tree"
-            ],
-            "x": 320,
-            "y": 48,
-            "width": 3,
-            "height": 4
-        },
-        {
-            "type": "treeLarge11",
-            "tags": [
-                "tree"
-            ],
-            "x": 368,
-            "y": 48,
-            "width": 3,
-            "height": 4
-        },
-        {
-            "type": "treeLarge12",
-            "tags": [
-                "tree"
-            ],
-            "x": 416,
-            "y": 48,
-            "width": 3,
-            "height": 4
-        },
-        {
             "type": "treeTall1",
             "tags": [
                 "tree"
@@ -520,601 +1107,6 @@
             "y": 0,
             "width": 1,
             "height": 2
-        },
-        {
-            "type": "tree1",
-            "tags": [
-                "tree"
-            ],
-            "x": 624,
-            "y": 0,
-            "width": 1,
-            "height": 2
-        },
-        {
-            "type": "tree2",
-            "tags": [
-                "tree"
-            ],
-            "x": 640,
-            "y": 0,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "tree3",
-            "tags": [
-                "tree"
-            ],
-            "x": 640,
-            "y": 16,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "tree4",
-            "tags": [
-                "tree"
-            ],
-            "x": 656,
-            "y": 0,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "leaves1",
-            "tags": [
-                "grass",
-                "leaves"
-            ],
-            "x": 656,
-            "y": 16,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "leaves2",
-            "tags": [
-                "grass",
-                "leaves"
-            ],
-            "x": 672,
-            "y": 0,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "leaves3",
-            "tags": [
-                "grass",
-                "leaves"
-            ],
-            "x": 672,
-            "y": 16,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "bush1",
-            "tags": [
-                "grass",
-                "bush"
-            ],
-            "x": 689,
-            "y": 0,
-            "width": 2,
-            "height": 2
-        },
-        {
-            "type": "bush2",
-            "tags": [
-                "grass",
-                "bush"
-            ],
-            "x": 721,
-            "y": 0,
-            "width": 2,
-            "height": 2
-        },
-        {
-            "type": "path1Innertl",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 0,
-            "y": 112,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1Innertc",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 16,
-            "y": 112,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1Innertr",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 32,
-            "y": 112,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1Innercl",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 0,
-            "y": 128,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1Innercc",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 16,
-            "y": 128,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1Innercr",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 32,
-            "y": 128,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1Innerbl",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 0,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1Innerbc",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 16,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1Innerbr",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 32,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1Outertl",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 48,
-            "y": 112,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1Outertr",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 64,
-            "y": 112,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1Outerbl",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 48,
-            "y": 128,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1Outerbr",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 64,
-            "y": 128,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1Full",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 48,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path1FullInner",
-            "tags": [
-                "path",
-                "grass"
-            ],
-            "x": 64,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Innertl",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 80,
-            "y": 112,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Innertc",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 96,
-            "y": 112,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Innertr",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 112,
-            "y": 112,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Innercl",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 80,
-            "y": 128,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Innercc",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 96,
-            "y": 128,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Innercr",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 112,
-            "y": 128,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Innerbl",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 80,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Innerbc",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 96,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Innerbr",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 112,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Outertl",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 128,
-            "y": 112,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Outertr",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 144,
-            "y": 112,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Outerbl",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 128,
-            "y": 128,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Outerbr",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 144,
-            "y": 128,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2Full",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 128,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "path2FullInner",
-            "tags": [
-                "path",
-                "brick"
-            ],
-            "x": 144,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "elevatedPath1tl",
-            "tags": [
-                "path",
-                "elevated"
-            ],
-            "x": 160,
-            "y": 112,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "elevatedPath1tc",
-            "tags": [
-                "path",
-                "elevated"
-            ],
-            "x": 176,
-            "y": 112,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "elevatedPath1tr",
-            "tags": [
-                "path",
-                "elevated"
-            ],
-            "x": 192,
-            "y": 112,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "elevatedPath1cl",
-            "tags": [
-                "path",
-                "elevated"
-            ],
-            "x": 160,
-            "y": 128,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "elevatedPath1cc",
-            "tags": [
-                "path",
-                "elevated"
-            ],
-            "x": 176,
-            "y": 128,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "elevatedPath1cr",
-            "tags": [
-                "path",
-                "elevated"
-            ],
-            "x": 192,
-            "y": 128,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "elevatedPath1bl",
-            "tags": [
-                "path",
-                "elevated"
-            ],
-            "x": 160,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "elevatedPath1bc",
-            "tags": [
-                "path",
-                "elevated"
-            ],
-            "x": 176,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "elevatedPath1br",
-            "tags": [
-                "path",
-                "elevated"
-            ],
-            "x": 192,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "choppedTrunk",
-            "tags": [
-                "path",
-                "elevated"
-            ],
-            "x": 192,
-            "y": 144,
-            "width": 1,
-            "height": 1
-        },
-        {
-            "type": "pokeCenter1",
-            "tags": [
-                "building"
-            ],
-            "x": 0,
-            "y": 160,
-            "width": 5,
-            "height": 6
-        },
-        {
-            "type": "house1",
-            "tags": [
-                "building"
-            ],
-            "x": 80,
-            "y": 176,
-            "width": 4,
-            "height": 5
-        },
-        {
-            "type": "house2",
-            "tags": [
-                "building"
-            ],
-            "x": 0,
-            "y": 256,
-            "width": 4,
-            "height": 5
-        },
-        {
-            "type": "house3",
-            "tags": [
-                "building"
-            ],
-            "x": 128,
-            "y": 256,
-            "width": 4,
-            "height": 5
-        },
-        {
-            "type": "office1",
-            "tags": [
-                "building"
-            ],
-            "x": 192,
-            "y": 210,
-            "width": 8,
-            "height": 9
-        },
-        {
-            "type": "office2",
-            "tags": [
-                "building"
-            ],
-            "x": 322,
-            "y": 210,
-            "width": 6,
-            "height": 12
         }
     ]
 }
