@@ -69,3 +69,20 @@ html body {
         top: 0;
     }
 }
+
+.zoom-item-2 {
+    zoom: 2;
+}
+
+.sb-overlay {
+    z-index: 1001;
+
+    .sb-content {
+        border-top: 0.2em solid rgba(255, 255, 255, 0.2);
+        background-color: var(--hope-colors-background);
+
+        .sb-handle {
+            background-color: var(--line-gray-color);
+        }
+    }
+}

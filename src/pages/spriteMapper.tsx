@@ -22,7 +22,8 @@ export const SpriteMapperPage: Component = () => {
 
     const [step, setStep] = createSignal<number>(0);
     const [zoomPerc, setZoomPerc] = createSignal<number>(100);
-    const [tabIndex, setTabIndex] = createSignal<number>(0);
+    const [jsonTabIndex, setJsonTabIndex] = createSignal<number>(0);
+    const [spriteTabIndex, setSpriteTabIndex] = createSignal<number>(0);
     const [spriteMapContainer, setSpriteMapContainer] = createSignal<ISpriteMapLookupContainer>(anyObject);
     const [spriteMapSrc, setSpriteMapSrc] = createSignal<string>();
     const [selectedDefinition, setSelectedDefinition] = createSignal<ISpriteMapLookup>();
@@ -54,15 +55,20 @@ export const SpriteMapperPage: Component = () => {
         const templateJson = await readFileAsync(templateJsonRef);
         const templObj = JSON.parse(templateJson.toString());
         setSpriteMapContainer(templObj);
-        setTabIndex(2);
+        setJsonTabIndex(2);
 
         event.target.value = null;
+    }
+
+    const regenSpriteMap = async (spriteMap: ISpriteMapLookupContainer, spriteSource?: string) => {
+        if (spriteMap == null || spriteSource == null) return;
+        await getSpriteMapServ().loadSpriteMap(spriteMap, spriteSource);
     }
 
     const navigateToEditStep = async () => {
         if (spriteMapContainer() == null || spriteMapSrc() == null) return;
 
-        await getSpriteMapServ().loadSpriteMap(spriteMapContainer(), spriteMapSrc()!);
+        await regenSpriteMap(spriteMapContainer(), spriteMapSrc());
         setStep(1);
     }
 
@@ -79,11 +85,15 @@ export const SpriteMapperPage: Component = () => {
     const addDefinition = () => {
         setSpriteMapContainer((prev: ISpriteMapLookupContainer) => {
             const newDefinitions = [...prev.definitions, selectedDefinition()!];
-            return ({
+
+            const newMap = {
                 ...prev,
                 definitions: orderDefinitions(newDefinitions),
-            });
+            };
+            regenSpriteMap(newMap, spriteMapSrc());
+            return (newMap);
         });
+        setSpriteTabIndex(0);
     }
 
     const editDefinition = () => {
@@ -96,11 +106,14 @@ export const SpriteMapperPage: Component = () => {
                 return def;
             });
 
-            return ({
+            const newMap = {
                 ...prev,
                 definitions: orderDefinitions(newDefinitions),
-            });
+            };
+            regenSpriteMap(newMap, spriteMapSrc());
+            return (newMap);
         });
+        setSpriteTabIndex(0);
     }
 
     const orderDefinitions = (definitions: Array<ISpriteMapLookup>): Array<ISpriteMapLookup> => {
@@ -129,7 +142,8 @@ export const SpriteMapperPage: Component = () => {
     return (
         <CommonLayout>
             <Flex w="100%" h="100vh" justifyContent="center" flexDirection="column">
-                <PageHeader text="Sprite mapper"></PageHeader>
+                <PageHeader text="Sprite mapper" />
+                <Container><Center>Map icons from a sprite image</Center></Container>
                 <Center class="sprite-map" flexGrow={1} position="relative">
                     <Show when={step() == 0}>
                         <Container pb="2em">
@@ -169,7 +183,7 @@ export const SpriteMapperPage: Component = () => {
                                 </Box>
                                 <Box flex={1}>
                                     <Card>
-                                        <Tabs height="60vh" fitted variant="pills" index={tabIndex()} onChange={setTabIndex}>
+                                        <Tabs height="60vh" fitted variant="pills" index={jsonTabIndex()} onChange={setJsonTabIndex}>
                                             <TabList>
                                                 <Tab>New sprite map</Tab>
                                                 <Tab>Upload JSON</Tab>
@@ -242,10 +256,10 @@ export const SpriteMapperPage: Component = () => {
                                 </VStack>
                                 <Box flex={1} overflowY="auto">
                                     <Card>
-                                        <Tabs fitted variant="pills">
+                                        <Tabs fitted variant="pills" index={spriteTabIndex()} onChange={setSpriteTabIndex}>
                                             <TabList>
                                                 <Tab>Existing tiles</Tab>
-                                                <Tab>New tile</Tab>
+                                                <Tab>Add/Edit tile</Tab>
                                             </TabList>
                                             <TabPanel>
                                                 <Grid templateColumns="repeat(2, 1fr)" gap="$6">
@@ -256,6 +270,10 @@ export const SpriteMapperPage: Component = () => {
                                                                 selectedDefinition={selectedDefinition()}
                                                                 setSelectedDefinition={(newDef: ISpriteMapLookup) => setSelectedDefinition(newDef)}
                                                                 removeDefinition={removeDefinition(definition.type)}
+                                                                editDefinition={(newDef: ISpriteMapLookup) => {
+                                                                    setSelectedDefinition(newDef);
+                                                                    setSpriteTabIndex(1);
+                                                                }}
                                                             />
                                                         )}
                                                     </For>

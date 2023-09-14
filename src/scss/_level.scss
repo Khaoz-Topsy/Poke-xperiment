@@ -74,11 +74,44 @@
     }
 }
 
+.sprite-tile {
+    display: inline-block;
+    margin-right: 1px;
+}
+
 .controls {
+    pointer-events: none;
     z-index: 1000;
+
+    > button {
+        pointer-events: all;
+    }
 
     > *:focus {
         box-shadow: none;
+    }
+}
+
+.select-sprite-item {
+    .sprite-tile {
+        transition: transform 250ms ease-in-out;
+
+        &:hover {
+            transform: scale(1.5);
+            z-index: 1000;
+        }
+
+        &.is-active:after {
+            content: " ";
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.25);
+            border-color: rgb(50, 50, 50);
+            border-radius: 2px;
+            border-style: dashed;
+            border-width: 2px;
+        }
     }
 }
 

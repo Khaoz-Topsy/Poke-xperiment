@@ -11,6 +11,10 @@
         }
     }
 
+    &.show-walkable-zone-add-grid .walkable-layer {
+        opacity: 0.75;
+    }
+
     &.show-3d .level-container {
         overflow: visible;
         transform: rotate(20deg) skew(-25deg);

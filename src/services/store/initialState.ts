@@ -16,7 +16,7 @@ export const initialState: IState = {
         scale: 100,
     },
     sidebar: {
-        isOpen: true,
+        isOpen: false,
     },
     progress: {
         level: Level.none,

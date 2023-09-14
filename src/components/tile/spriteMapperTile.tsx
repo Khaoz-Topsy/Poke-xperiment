@@ -10,6 +10,7 @@ interface IProps {
     selectedDefinition: ISpriteMapLookup | undefined;
     setSelectedDefinition: (newDef: ISpriteMapLookup) => void;
     removeDefinition: (event: any) => void;
+    editDefinition: (event: any) => void;
 }
 
 export const SpriteMapperTile: Component<IProps> = (props: IProps) => {
@@ -34,6 +35,7 @@ export const SpriteMapperTile: Component<IProps> = (props: IProps) => {
                     </VStack>
                 </Flex>
                 <Button class="close" colorScheme="danger" onClick={props.removeDefinition} zIndex={100}>X</Button>
+                <Button class="edit" colorScheme="info" onClick={() => props.editDefinition(props.definition)} zIndex={100}>✏️</Button>
             </Card>
         </GridItem>
     );

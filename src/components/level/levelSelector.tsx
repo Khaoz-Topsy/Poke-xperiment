@@ -4,15 +4,15 @@ import { Box, Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFoo
 import { Level } from '../../constants/game';
 
 export interface ILevelSelectorModalProps {
-    loadLevel: (level: Level) => void;
+    loadLevel: (level: Level, regenIds: boolean) => void;
 }
 
 export const LevelSelectorModal: Component<ILevelSelectorModalProps> = (props: ILevelSelectorModalProps) => {
 
     const { isOpen, onOpen, onClose } = createDisclosure();
 
-    const loadLevel = (level: Level) => {
-        props.loadLevel(level);
+    const loadLevel = (level: Level, regenIds: boolean) => {
+        props.loadLevel(level, regenIds);
         onClose();
     }
 
@@ -29,10 +29,10 @@ export const LevelSelectorModal: Component<ILevelSelectorModalProps> = (props: I
                             <ul>
                                 <For each={Object.values(Level).filter((l: any) => isNaN(l) && l != Level.none)}>
                                     {(level: Level) => (
-                                        <li class="pointer" onClick={() => loadLevel(level)}>{level}</li>
+                                        <li class="pointer" onClick={() => loadLevel(level, false)}>{level}</li>
                                     )}
                                 </For>
-                                <li class="pointer" onClick={() => loadLevel(Level.none)}>New Level</li>
+                                <li class="pointer" onClick={() => loadLevel(Level.none, true)}>New Level</li>
                             </ul>
                         </Box>
                     </ModalBody>

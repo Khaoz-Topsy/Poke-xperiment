@@ -1,16 +1,16 @@
 import { Box, Button, Center, FormControl, FormLabel, Input } from '@hope-ui/solid';
 import { useNavigate } from '@solidjs/router';
-import { Component, Show, onMount } from 'solid-js';
+import { Component, Show } from 'solid-js';
 
+import { CharacterSelectionModal } from '../components/character/characterSelectionModal';
 import { Card } from '../components/common/card';
+import { CommonLayout } from '../components/common/layout';
 import { CenterLoading } from '../components/core/loading';
 import { Level } from '../constants/game';
 import { routes } from '../constants/route';
 import { getProgressLevel } from '../services/store/sections/progressState';
 import { getCharacter, getUserName } from '../services/store/sections/userState';
 import { getStateService } from '../services/store/stateService';
-import { CommonLayout } from '../components/common/layout';
-import { CharacterInMotion } from '../components/character/characterInMotion';
 
 export const HomePage: Component = () => {
     const navigate = useNavigate();
@@ -31,9 +31,9 @@ export const HomePage: Component = () => {
                 <Card>
                     <Box p="1em">
                         <Center mb="1em">
-                            <CharacterInMotion
+                            <CharacterSelectionModal
                                 charIndex={charIndex()}
-                                scale={2}
+                                selectCharacter={setCharIndex}
                             />
                         </Center>
                         <FormControl mb="1em">

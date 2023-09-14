@@ -19,6 +19,7 @@ export const layerCssClassOptions = {
     disableLayerLevelOpacity: 'disable-layer-level-opacity',
     showLayerContainerOverflow: 'show-layer-container-overflow',
     showWalkableZone: 'show-walkable-zone',
+    showWalkableZoneAddGrid: 'show-walkable-zone-add-grid',
 }
 
 export enum Level {

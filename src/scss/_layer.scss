@@ -1,26 +1,40 @@
-$layerControlWidth: 120px;
+$layerControlWidth: 10vw;
 
 .layer-controls-container {
     position: absolute;
-    top: 5vh;
-    right: 0.5em;
-    bottom: 20vh;
+    top: 10vh;
+    bottom: 0;
     overflow-y: auto;
     overflow-x: hidden;
     width: calc($layerControlWidth + 1em);
     z-index: 1001;
 
-    .layer-controls {
+    &.left {
+        left: 0.5em;
+    }
+    &.right {
+        right: 0.5em;
+    }
+
+    .layer-controls,
+    .layer-details {
         width: $layerControlWidth;
         margin-left: 0.5em;
         margin-right: 0.5em;
 
+        span {
+            opacity: 0.5;
+        }
+    }
+
+    .layer-controls {
         .settings {
             cursor: pointer;
             font-size: 150%;
         }
 
         .layer-select {
+            background-color: var(--hope-colors-background);
             border: 1px dashed rgba(255, 255, 255, 0.2);
             border-radius: 5px;
             min-height: 75px;

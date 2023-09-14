@@ -50,13 +50,21 @@
 .sprite-mapper-tile {
     position: relative;
 
+    .edit,
     .close {
         position: absolute;
-        top: -0.25em;
-        right: -0.25em;
+        right: 0.125em;
 
         &:focus {
             box-shadow: none;
         }
+    }
+
+    .close {
+        top: 0.125em;
+    }
+
+    .edit {
+        bottom: 0.125em;
     }
 }

@@ -25,7 +25,7 @@ export const CharacterInMotion: Component<ICharacterInMotionProps> = (props: ICh
 
     return (
         <Character
-            charIndex={7}
+            charIndex={props.charIndex}
             state={states[stateIndex()]}
             scale={props.scale}
         />

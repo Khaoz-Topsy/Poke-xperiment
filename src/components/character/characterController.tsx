@@ -24,7 +24,6 @@ interface ICharacterInMotionProps {
 
 export const CharacterController: Component<ICharacterInMotionProps> = (props: ICharacterInMotionProps) => {
     const stateRef = getStateService();
-    const [uiScale] = getScale(stateRef);
     const [charIndex] = getCharacter(stateRef);
     const [progressCoords, setProgressCoords] = getProgressCoords(stateRef);
 
@@ -83,10 +82,10 @@ export const CharacterController: Component<ICharacterInMotionProps> = (props: I
         setIsMoving(true);
         setProgressCoords(dest);
 
-        await timeout(characterStepDuration);
+        await timeout(characterStepDuration / 2);
         setCharAnimState(animFrames[stepIndex + 1]);
 
-        await timeout(characterStepDuration);
+        await timeout(characterStepDuration / 2);
         setCharAnimState(animFrames[0]);
         setStepCount(i => i + 1);
         setIsMoving(false);

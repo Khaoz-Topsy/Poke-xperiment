@@ -31,6 +31,8 @@ import { getSpriteMapServ } from '../services/internal/spriteMapService';
 import { getScale } from '../services/store/sections/userState';
 import { getStateService } from '../services/store/stateService';
 import { copyToClipboard } from '../helper/documentHelper';
+import { LevelItemSelectorModal } from '../components/level/levelItemSelectorModal';
+import { LevelLayerDetails } from '../components/level/levelLayerDetails';
 
 export const LevelBuilderPage: Component = () => {
     const stateRef = getStateService();
@@ -69,8 +71,11 @@ export const LevelBuilderPage: Component = () => {
         Mousetrap.unbind(knownKeybinds.left);
     });
 
-    const loadLevel = async (level: Level) => {
+    const loadLevel = async (level: Level, regenIds: boolean) => {
         const levelData = await getLevelServ().loadLevel(level);
+        if (regenIds) {
+            getLevelServ().regenIds(levelData);
+        }
         setLevelData(levelData);
         setSelectedLayerIndex(0);
     }
@@ -170,6 +175,14 @@ export const LevelBuilderPage: Component = () => {
         setWalkableBoxStart(undefined);
     }
 
+    const toggleWalkableGrid = (newValue?: boolean) => {
+        if (newValue != null) {
+            setShowWalkableGrid(newValue);
+        } else {
+            setShowWalkableGrid(prev => !prev);
+        }
+    }
+
     const removeWalkableGridItem = (id: string) => {
         setLevelData(removeWalkableGridItemMapper(id));
     }
@@ -190,11 +203,32 @@ export const LevelBuilderPage: Component = () => {
                         additionControls={<>
                             <Show when={levelData() != null}>
                                 <Button onClick={copyJsonLevel} mr="2px">Copy level.json</Button>
+                                <Show when={showWalkableGrid() == false && layerClasses().includes(layerCssClassOptions.showWalkableZone) == false}>
+                                    <LevelItemSelectorModal
+                                        mapLookup={mapLookup()}
+                                        selectedSpriteItemToPaste={selectedSpriteItemToPaste()}
+                                        toggleSelectedSprite={toggleSelectedSprite}
+                                    />
+                                </Show>
                             </Show>
                             <LevelSelectorModal loadLevel={loadLevel} />
                         </>}
                         uiScale={uiScale()}
                         setUiScale={(newValue: number) => setUiScale(newValue)}
+                        leftControls={
+                            <Show when={levelData() != null}>
+                                <LevelLayerDetails
+                                    levelData={levelData()}
+                                    lookup={mapLookup()?.definitions}
+                                    selectedLayerIndex={selectedLayerIndex()}
+                                    showWalkableGrid={showWalkableGrid()}
+                                    selectedSpriteItem={selectedSpriteItem()}
+                                    selectedSpriteItemToPaste={selectedSpriteItemToPaste()}
+                                    layerClasses={layerClasses()}
+                                    unselectSpriteItem={() => setSelectedSpriteItemToPaste(undefined)}
+                                />
+                            </Show>
+                        }
                         rightControls={
                             <Show when={levelData() != null}>
                                 <LevelLayerControl
@@ -202,7 +236,7 @@ export const LevelBuilderPage: Component = () => {
                                     selectedLayerIndex={selectedLayerIndex()}
                                     layerClasses={layerClasses()}
                                     addLayer={addLayer}
-                                    toggleWalkableGrid={() => setShowWalkableGrid(prev => !prev)}
+                                    toggleWalkableGrid={toggleWalkableGrid}
                                     setSelectedLayerIndex={selectLayer}
                                     setLayerClasses={(newArr: Array<string>) => setLayerClasses(newArr)}
                                 />
@@ -210,15 +244,6 @@ export const LevelBuilderPage: Component = () => {
                         }
                         bottomControls={
                             <Box px="1em" pb="0.5em">
-                                <For each={(mapLookup()?.definitions ?? []).filter(m => m.type != SpriteItemType.unknown)}>
-                                    {(item: ISpriteMapLookup) => (
-                                        <LevelControlSpriteItem
-                                            {...item}
-                                            isActive={item.type == selectedSpriteItemToPaste()?.type}
-                                            onClick={(isActive, _) => toggleSelectedSprite(isActive, item)}
-                                        />
-                                    )}
-                                </For>
                             </Box>
                         }
                     >

@@ -10,6 +10,7 @@ interface IProps {
     defaultBackgroundTile: string;
     children: JSX.Element;
     additionControls?: JSX.Element;
+    leftControls?: JSX.Element;
     rightControls?: JSX.Element;
     bottomControls?: JSX.Element;
     uiScale: number;
@@ -22,13 +23,16 @@ export const LevelContainer: Component<IProps> = (props: IProps) => {
     const applyWrapper = (name: string, children: JSX.Element) => {
         if (props.wrapper == null) {
             return (
-                <Flex w="100%" h="100vh" justifyContent="center" flexDirection="column">
+                <Flex w="100%" h="100vh" justifyContent="center" flexDirection="column" position="relative">
                     <PageHeader text={name}></PageHeader>
                     <Center class="controls">
                         {props.additionControls}
                         <Button onClick={() => props.setUiScale(props.uiScale + 10)} mr="2px">+</Button>
                         <Button onClick={() => props.setUiScale(props.uiScale - 10)}>-</Button>
                     </Center>
+                    <Show when={props.leftControls != null}>
+                        {props.leftControls}
+                    </Show>
                     <Center class="level-children-wrapper" flexGrow={1} position="relative">
                         {children}
                     </Center>

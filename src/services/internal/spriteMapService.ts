@@ -36,7 +36,6 @@ export class SpriteMapService {
         spriteMap: ISpriteMapLookupContainer,
         spriteSource: string,
     ): Promise<ISpriteMapLookupContainer> => {
-
         cutImageFromOtherImage(
             spriteSource,
             (image: HTMLImageElement) => {

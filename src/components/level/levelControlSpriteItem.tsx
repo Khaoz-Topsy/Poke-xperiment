@@ -19,10 +19,8 @@ export const LevelControlSpriteItem: Component<ILevelControlSpriteItemProps> = (
             class={classNames('sprite-tile', props.type, { 'is-active': props.isActive })}
             onClick={() => props.onClick(props.isActive, props.type)}
             style={{
-                display: 'inline-block',
                 width: `${props.width * unitInPx}px`,
                 height: `${props.height * unitInPx}px`,
-                'margin-right': '1px',
                 'background-image': `var(--sprite-item-${props.type})`,
             }}
             draggable={false}

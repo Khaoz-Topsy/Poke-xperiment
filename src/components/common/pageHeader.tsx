@@ -1,5 +1,5 @@
 import { Flex, Heading } from "@hope-ui/solid";
-import { Component } from "solid-js";
+import { Component, JSX } from "solid-js";
 
 interface IProps {
     text: string

@@ -13,32 +13,11 @@
             "endY": 6
         },
         {
-            "id": "d07fbcaf-50af-49ab-a0f3-93bcd75a2949",
-            "startX": 5,
-            "startY": 7,
-            "endX": 7,
-            "endY": 11
-        },
-        {
-            "id": "da7d3344-6e57-44d2-9c64-80457c4dadbd",
-            "startX": 0,
-            "startY": 12,
-            "endX": 12,
-            "endY": 14
-        },
-        {
             "id": "1b0465f4-8454-443c-bf3c-4a451bf2ca5b",
             "startX": 0,
             "startY": 8,
             "endX": 1,
             "endY": 11
-        },
-        {
-            "id": "4210b5ba-065c-45c6-9200-0a2b9e20c29e",
-            "startX": 2,
-            "startY": 7,
-            "endX": 4,
-            "endY": 8
         },
         {
             "id": "b1d7cb4e-7b52-40f6-98e3-bb4c0eda092f",
@@ -90,20 +69,6 @@
             "endY": 9
         },
         {
-            "id": "8e427413-c102-492c-92d2-3ff121819c3c",
-            "startX": 8,
-            "startY": 9,
-            "endX": 8,
-            "endY": 9
-        },
-        {
-            "id": "4c750bf4-57c4-49fe-a172-9fe6a9f8d984",
-            "startX": 8,
-            "startY": 7,
-            "endX": 31,
-            "endY": 8
-        },
-        {
             "id": "d58a9a01-02c3-48b7-ae25-60e049dbf5d3",
             "startX": 31,
             "startY": 5,
@@ -123,6 +88,69 @@
             "startY": 4,
             "endX": 7,
             "endY": 4
+        },
+        {
+            "id": "6dae14b2-a432-44da-adb4-0b91671ee887",
+            "startX": 8,
+            "startY": 9,
+            "endX": 8,
+            "endY": 9
+        },
+        {
+            "id": "da8c3221-abc3-4efb-b33e-f16ad65e1619",
+            "startX": 2,
+            "startY": 7,
+            "endX": 31,
+            "endY": 8
+        },
+        {
+            "id": "49705c7b-afe5-42ec-8559-cf6a56fdb48b",
+            "startX": 11,
+            "startY": 9,
+            "endX": 31,
+            "endY": 17
+        },
+        {
+            "id": "42f72083-4dec-4d5d-9cca-7e730dfdb2aa",
+            "startX": 0,
+            "startY": 12,
+            "endX": 10,
+            "endY": 17
+        },
+        {
+            "id": "54208c9f-ac31-4ea6-a30a-13d868ef0b9d",
+            "startX": 5,
+            "startY": 9,
+            "endX": 7,
+            "endY": 11
+        },
+        {
+            "id": "944186b5-ecbc-43e3-8304-0cdc560af8b0",
+            "startX": 28,
+            "startY": 4,
+            "endX": 29,
+            "endY": 4
+        },
+        {
+            "id": "6bb78470-c68c-4f1d-92b3-435001e4770e",
+            "startX": 21,
+            "startY": 4,
+            "endX": 22,
+            "endY": 4
+        },
+        {
+            "id": "36d55f10-7ff7-410c-bedd-cfb8fed2b66c",
+            "startX": 11,
+            "startY": 4,
+            "endX": 11,
+            "endY": 4
+        },
+        {
+            "id": "2cf383e4-2fd4-4b91-be46-49c930fda160",
+            "startX": 16,
+            "startY": 4,
+            "endX": 16,
+            "endY": 4
         }
     ],
     "interactionTiles": [],
@@ -130,6 +158,7 @@
         {
             "id": "bg",
             "name": "background",
+            "zIndex": 0,
             "items": [
                 {
                     "x": 0,
@@ -2088,6 +2117,7 @@
         {
             "id": "6375d1a4-9cfc-4c4d-9612-4a8f69eca8c6",
             "name": "trees",
+            "zIndex": 0,
             "items": [
                 {
                     "type": "treeLarge4",
@@ -2158,6 +2188,7 @@
         {
             "id": "22587c1d-5915-4329-a718-c96ef92f2f5b",
             "name": "building",
+            "zIndex": 0,
             "items": [
                 {
                     "x": 96,

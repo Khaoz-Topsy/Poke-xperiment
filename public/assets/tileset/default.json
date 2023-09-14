@@ -26,12 +26,67 @@
             "height": 2
         },
         {
+            "type": "choppedBigTrunk1",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": "352",
+            "y": "112",
+            "width": "3",
+            "height": "2"
+        },
+        {
+            "type": "choppedBigTrunk2",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": "400",
+            "y": "112",
+            "width": "2",
+            "height": "2"
+        },
+        {
+            "type": "choppedBigTrunk3",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": "448",
+            "y": "112",
+            "width": "2",
+            "height": "2"
+        },
+        {
+            "type": "choppedBigTrunk4",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": "480",
+            "y": "114",
+            "width": "3",
+            "height": "2"
+        },
+        {
             "type": "choppedTrunk1",
             "tags": [
                 "path",
                 "elevated"
             ],
             "x": "352",
+            "y": 144,
+            "width": 1,
+            "height": 1
+        },
+        {
+            "type": "choppedTrunk2",
+            "tags": [
+                "path",
+                "elevated"
+            ],
+            "x": "368",
             "y": 144,
             "width": 1,
             "height": 1
