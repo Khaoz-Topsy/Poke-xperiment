@@ -1,12 +1,18 @@
 .character-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    transition: transform var(--sprite-item-character-step-duration) linear;
-    z-index: var(--sprite-item-character-zindex);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  transition: transform var(--sprite-item-character-step-duration) ease-in-out;
+  z-index: var(--sprite-item-character-zindex);
 
-    .character-tile {
-        display: block;
-    }
+  &.moving {
+    transition-timing-function: linear;
+  }
+}
+
+.character-tile {
+  display: block;
+  width: var(--sprite-item-character-size);
+  height: var(--sprite-item-character-size);
 }

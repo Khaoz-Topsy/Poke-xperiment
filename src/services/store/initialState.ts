@@ -22,7 +22,7 @@ export const initialState: IState = {
         level: Level.none,
         coord: {
             x: 0,
-            y: Math.floor(numRows / 2),
+            y: 0,
         }
     }
 }

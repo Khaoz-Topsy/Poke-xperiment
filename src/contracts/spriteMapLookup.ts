@@ -8,6 +8,7 @@ export interface ISpriteMapLookupContainer {
 
 export interface ISpriteMapLookup extends ISpriteMapDimensions {
     type: SpriteItemType;
+    tags: Array<string>;
 }
 
 export interface ISpriteMapDimensions {

@@ -1,7 +1,7 @@
 import { Container, Service } from 'typedi';
 import { ISpriteMapLookupContainer } from '../../contracts/spriteMapLookup';
 import { createCanvasToCutImage, cutImageFromOtherImage, updateCustomStyleTag } from '../../helper/documentHelper';
-import { characterZIndex, numCharacters, unitInPx } from '../../constants/game';
+import { characterSize, characterZIndex, numCharacters, unitInPx } from '../../constants/game';
 import { characterStepDuration } from '../../constants/animation';
 
 @Service()
@@ -67,18 +67,20 @@ export class SpriteMapService {
             spriteSource,
             (image: HTMLImageElement) => {
                 const cssMapItems = [
+                    `--sprite-item-character-size: ${characterSize}px;`,
                     `--sprite-item-character-step-duration: ${characterStepDuration}ms;`,
                     `--sprite-item-character-zindex: ${characterZIndex};`,
                 ];
-                const spriteMapLookupItem = {
-                    x: (charIndex * 20),
-                    y: 0,
-                    width: 180,
-                    height: 20,
-                };
 
                 for (let charIndex = 0; charIndex < numCharacters; charIndex++) {
-                    const dataUri = createCanvasToCutImage(image, spriteMapLookupItem);
+                    const spriteMapLookupItem = {
+                        x: 0,
+                        y: (charIndex * characterSize),
+                        width: 10,
+                        height: 1,
+                    };
+
+                    const dataUri = createCanvasToCutImage(image, spriteMapLookupItem, characterSize);
                     if (dataUri == null) return;
                     cssMapItems.push(`--sprite-item-character-${charIndex}: url("${dataUri}");`);
                 }

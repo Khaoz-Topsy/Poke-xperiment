@@ -25,7 +25,7 @@ import { SpriteItemType } from '../contracts/spriteItem';
 import { ISpriteMapLookup, ISpriteMapLookupContainer } from '../contracts/spriteMapLookup';
 import { uuidv4 } from '../helper/guidHelper';
 import { stringInputPopup } from '../helper/popupHelper';
-import { addLayerMapper, addSpriteToMapMapper, handleWalkableGridSelectMapper, removeSpriteFromMapMapper, removeWalkableGridItemMapper } from '../mapper/levelData';
+import { addLayerMapper, addSpriteToMapMapper, handleWalkableGridSelectMapper, handleWalkableStartMapper, removeSpriteFromMapMapper, removeWalkableGridItemMapper } from '../mapper/levelData';
 import { getLevelServ } from '../services/internal/levelService';
 import { getSpriteMapServ } from '../services/internal/spriteMapService';
 import { getScale } from '../services/store/sections/userState';
@@ -33,6 +33,7 @@ import { getStateService } from '../services/store/stateService';
 import { copyToClipboard } from '../helper/documentHelper';
 import { LevelItemSelectorModal } from '../components/level/levelItemSelectorModal';
 import { LevelLayerDetails } from '../components/level/levelLayerDetails';
+import { anyObject } from '../helper/typescriptHacks';
 
 export const LevelBuilderPage: Component = () => {
     const stateRef = getStateService();
@@ -43,7 +44,6 @@ export const LevelBuilderPage: Component = () => {
     const [mapLookup, setMapLookup] = createSignal<ISpriteMapLookupContainer>();
 
     const [layerClasses, setLayerClasses] = createSignal<Array<string>>([]);
-    const [showWalkableGrid, setShowWalkableGrid] = createSignal<boolean>(false);
     const [walkableBoxStart, setWalkableBoxStart] = createSignal<ILevelCoord>();
 
     const [selectedSpriteItem, setSelectedSpriteItem] = createSignal<string>();
@@ -105,6 +105,17 @@ export const LevelBuilderPage: Component = () => {
         setSelectedSpriteItem(undefined);
     }
 
+    const setBackgroundTile = (newBgTile: string) => {
+        setLevelData((prev: ILevelData | undefined) => {
+            const prevLvl = (prev ?? anyObject);
+            console.log(newBgTile)
+            return {
+                ...prevLvl,
+                defaultBackgroundTile: newBgTile,
+            };
+        })
+    }
+
     const toggleSelected = (levelItemId: string) => {
         const isActive = levelItemId == selectedSpriteItem();
         if (isActive) {
@@ -135,6 +146,7 @@ export const LevelBuilderPage: Component = () => {
             width: specs.width,
             height: specs.height,
             type: specs.type,
+            tags: [],
         }, uuidv4());
     }
 
@@ -154,6 +166,7 @@ export const LevelBuilderPage: Component = () => {
             y: currentItemObj.y + (y * unitInPx),
             width: currentItemObj.width!,
             height: currentItemObj.height!,
+            tags: [],
         }, currentItemId)
     }
 
@@ -164,8 +177,14 @@ export const LevelBuilderPage: Component = () => {
 
     const handleWalkableGridSelect = (colIndex: number, rowIndex: number) => {
         const currentCoord: ILevelCoord = { x: colIndex, y: rowIndex };
-        const startCoord = walkableBoxStart();
 
+        const isStartMode = layerClasses().includes(layerCssClassOptions.showWalkableZoneAddStart);
+        if (isStartMode) {
+            setLevelData(handleWalkableStartMapper(currentCoord));
+            return;
+        }
+
+        const startCoord = walkableBoxStart();
         if (startCoord == null) {
             setWalkableBoxStart(currentCoord);
             return;
@@ -173,14 +192,6 @@ export const LevelBuilderPage: Component = () => {
 
         setLevelData(handleWalkableGridSelectMapper(startCoord, currentCoord));
         setWalkableBoxStart(undefined);
-    }
-
-    const toggleWalkableGrid = (newValue?: boolean) => {
-        if (newValue != null) {
-            setShowWalkableGrid(newValue);
-        } else {
-            setShowWalkableGrid(prev => !prev);
-        }
     }
 
     const removeWalkableGridItem = (id: string) => {
@@ -203,7 +214,7 @@ export const LevelBuilderPage: Component = () => {
                         additionControls={<>
                             <Show when={levelData() != null}>
                                 <Button onClick={copyJsonLevel} mr="2px">Copy level.json</Button>
-                                <Show when={showWalkableGrid() == false && layerClasses().includes(layerCssClassOptions.showWalkableZone) == false}>
+                                <Show when={layerClasses().includes(layerCssClassOptions.showWalkableZone) === false}>
                                     <LevelItemSelectorModal
                                         mapLookup={mapLookup()}
                                         selectedSpriteItemToPaste={selectedSpriteItemToPaste()}
@@ -221,7 +232,6 @@ export const LevelBuilderPage: Component = () => {
                                     levelData={levelData()}
                                     lookup={mapLookup()?.definitions}
                                     selectedLayerIndex={selectedLayerIndex()}
-                                    showWalkableGrid={showWalkableGrid()}
                                     selectedSpriteItem={selectedSpriteItem()}
                                     selectedSpriteItemToPaste={selectedSpriteItemToPaste()}
                                     layerClasses={layerClasses()}
@@ -233,11 +243,12 @@ export const LevelBuilderPage: Component = () => {
                             <Show when={levelData() != null}>
                                 <LevelLayerControl
                                     levelData={levelData()!}
+                                    mapLookup={mapLookup()!}
                                     selectedLayerIndex={selectedLayerIndex()}
                                     layerClasses={layerClasses()}
                                     addLayer={addLayer}
-                                    toggleWalkableGrid={toggleWalkableGrid}
                                     setSelectedLayerIndex={selectLayer}
+                                    setBackgroundTile={setBackgroundTile}
                                     setLayerClasses={(newArr: Array<string>) => setLayerClasses(newArr)}
                                 />
                             </Show>
@@ -279,8 +290,17 @@ export const LevelBuilderPage: Component = () => {
                                         <WalkableItem {...walkable} onRightClick={removeWalkableGridItem} />
                                     )}
                                 </For>
+                                <WalkableItem
+                                    id="start-tile"
+                                    startX={levelData()?.startTile?.x ?? 0}
+                                    endX={levelData()?.startTile?.x ?? 0}
+                                    startY={levelData()?.startTile?.y ?? 0}
+                                    endY={levelData()?.startTile?.y ?? 0}
+                                    onRightClick={() => { }}
+                                />
                             </LevelLayer>
                         </Show>
+
                         <Show when={selectedSpriteItemToPaste() != null}>
                             <LevelControlPasteGrid
                                 colSpan={selectedSpriteItemToPaste()?.width}
@@ -288,7 +308,12 @@ export const LevelBuilderPage: Component = () => {
                                 onClick={pasteSprite}
                             />
                         </Show>
-                        <Show when={showWalkableGrid() == true && layerClasses().includes(layerCssClassOptions.showWalkableZone)}>
+                        <Show when={
+                            layerClasses().includes(layerCssClassOptions.showWalkableZone)
+                            && (
+                                layerClasses().includes(layerCssClassOptions.showWalkableZoneAddGrid) || layerClasses().includes(layerCssClassOptions.showWalkableZoneAddStart)
+                            )
+                        }>
                             <LevelControlPasteGrid
                                 colSpan={1}
                                 rowSpan={1}

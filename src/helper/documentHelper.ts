@@ -45,18 +45,19 @@ export const cutImageFromOtherImage = (
 export const createCanvasToCutImage = (
     image: HTMLImageElement,
     spriteDimensions: ISpriteMapDimensions,
+    localUnitInPx: number = unitInPx
 ): string | undefined => {
     const canvas = document.createElement('canvas');
-    canvas.width = spriteDimensions.width * unitInPx;
-    canvas.height = spriteDimensions.height * unitInPx;
+    canvas.width = spriteDimensions.width * localUnitInPx;
+    canvas.height = spriteDimensions.height * localUnitInPx;
     const context = canvas.getContext('2d');
 
     if (context == null) return;
     context.drawImage(image,
         spriteDimensions.x,
         spriteDimensions.y,
-        spriteDimensions.width * unitInPx,
-        spriteDimensions.height * unitInPx,
+        spriteDimensions.width * localUnitInPx,
+        spriteDimensions.height * localUnitInPx,
         0, 0,
         canvas.width,
         canvas.height,

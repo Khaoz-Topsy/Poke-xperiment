@@ -92,6 +92,16 @@ export const handleWalkableGridSelectMapper = (
     }
 }
 
+export const handleWalkableStartMapper = (
+    startCoord: ILevelCoord,
+) => (prev: ILevelData | undefined): ILevelData => {
+    const prevLvl = (prev ?? anyObject);
+    return {
+        ...prevLvl,
+        startTile: startCoord,
+    }
+}
+
 export const removeWalkableGridItemMapper = (
     id: string,
 ) => (prev: ILevelData | undefined): ILevelData => {

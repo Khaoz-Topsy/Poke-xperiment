@@ -18,13 +18,13 @@ export const WalkableItem: Component<IProps> = (props: IProps) => {
 
     return (
         <div
+            id={props.id}
             class={classNames('walkable-tile')}
             style={{
                 top: `${(props.startY) * unitInPx}px`,
                 left: `${(props.startX) * unitInPx}px`,
                 width: `${((props.endX - props.startX) + 1) * unitInPx}px`,
                 height: `${((props.endY - props.startY) + 1) * unitInPx}px`,
-                'background-color': 'rgba(200, 0, 0, 0.5)',
             }}
             onContextMenu={onRightClick(props.id)}
             draggable={false}

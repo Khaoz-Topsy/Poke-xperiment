@@ -1,6 +1,7 @@
 import { classNames } from "@hope-ui/solid";
 import { Component } from "solid-js";
 import { CharacterStateEnum } from "../../constants/enum/characterStateEnum";
+import { characterSize } from "../../constants/game";
 
 interface ICharacterProps {
     charIndex: number;
@@ -21,12 +22,12 @@ export const Character: Component<ICharacterProps> = (props: ICharacterProps) =>
         if (rightStates[state] != null) {
             xPos = rightStates[state];
         }
-        return xPos * 21;
+        return xPos * characterSize;
     }
 
     const getPosY = (state: CharacterStateEnum, charIndex: number) => {
 
-        return charIndex * 21;
+        return charIndex * characterSize;
     }
 
     const getScale = (state: CharacterStateEnum, scale?: number) => {
@@ -43,8 +44,6 @@ export const Character: Component<ICharacterProps> = (props: ICharacterProps) =>
             style={{
                 'background-position-y': `-${getPosY(props.state, props.charIndex)}px`,
                 'background-position-x': `-${getPosX(props.state)}px`,
-                width: '20px',
-                height: '20px',
                 'background-image': `var(--sprite-item-character-${props.charIndex})`,
                 'transform': `scale(${getScale(props.state, props.scale)})`,
             }}

@@ -1,4 +1,4 @@
-import { Flex, FormControl, FormLabel, Select, SelectContent, SelectIcon, SelectListbox, SelectOption, SelectOptionIndicator, SelectOptionText, SelectPlaceholder, SelectTrigger, SelectValue, Text } from "@hope-ui/solid";
+import { Box, Flex, FormControl, FormLabel, Select, SelectContent, SelectIcon, SelectListbox, SelectOption, SelectOptionIndicator, SelectOptionText, SelectPlaceholder, SelectTrigger, SelectValue, Text } from "@hope-ui/solid";
 import { Component, For, JSX, Show, createEffect, createSignal } from "solid-js";
 import { CustomImage } from "./image";
 
@@ -6,6 +6,7 @@ export interface IDropdownOption {
     title: string;
     value: string;
     image?: string;
+    backgroundImg?: string;
 }
 
 interface IProps {
@@ -52,13 +53,19 @@ export const Dropdown: Component<IProps> = (props: IProps) => {
                                 <For each={selectedOptions}>
                                     {selectedOption => (
                                         <Flex mr="1em">
-                                            <Show when={
-                                                (getOptionFromValue(selectedOption.value) != null) &&
-                                                (getOptionFromValue(selectedOption.value)!.image != null)
-                                            }>
+                                            <Show when={(getOptionFromValue(selectedOption.value)?.image != null)}>
                                                 <CustomImage
                                                     src={getOptionFromValue(selectedOption.value)!.image}
                                                     alt={getOptionFromValue(selectedOption.value)!.title}
+                                                    borderRadius={3}
+                                                    height="1.5em"
+                                                    width="1.5em"
+                                                    mr="0.5em"
+                                                />
+                                            </Show>
+                                            <Show when={(getOptionFromValue(selectedOption.value)?.backgroundImg != null)}>
+                                                <Box
+                                                    background={getOptionFromValue(selectedOption.value)!.backgroundImg}
                                                     borderRadius={3}
                                                     height="1.5em"
                                                     width="1.5em"
@@ -86,6 +93,15 @@ export const Dropdown: Component<IProps> = (props: IProps) => {
                                             borderRadius={5}
                                             maxHeight="2em"
                                             maxWidth="2em"
+                                            ml="0.5em"
+                                        />
+                                    </Show>
+                                    <Show when={item.backgroundImg != null}>
+                                        <Box
+                                            background={item.backgroundImg}
+                                            borderRadius={3}
+                                            height="1.5em"
+                                            width="1.5em"
                                             ml="0.5em"
                                         />
                                     </Show>

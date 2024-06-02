@@ -14,6 +14,10 @@ import { CenterLoading } from '../core/loading';
 import { LevelContainer } from './levelContainer';
 import { LevelItem } from './levelItem';
 import { LevelLayer } from './levelLayer';
+import { Button, Center, Flex } from '@hope-ui/solid';
+import { PageHeader } from '../common/pageHeader';
+import { Link } from '@solidjs/router';
+import { routes } from '../../constants/route';
 
 export interface ILevelCompProps {
     uiScale: number;
@@ -52,7 +56,14 @@ export const LevelWrapper: Component<ILevelCompProps> = (props: ILevelCompProps)
     return (
         <>
             <Show when={networkState() == NetworkState.Error}>
-                <h1>Error</h1>
+                <Flex w="100%" h="100vh" justifyContent="center" flexDirection="column" position="relative">
+                    <PageHeader text="Something went wrong"></PageHeader>
+                    <Center>
+                        <Link href={routes.home}>
+                            <Button>Go home</Button>
+                        </Link>
+                    </Center>
+                </Flex>
             </Show>
             <Show when={networkState() == NetworkState.Loading}>
                 <CenterLoading />

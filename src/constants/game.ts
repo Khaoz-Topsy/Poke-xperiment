@@ -5,6 +5,7 @@ export const numRows = 18;
 export const numCharacters = 12;
 export const columnAndRowGridCells = Array.from(Array(numColumns * numRows).keys());
 
+export const characterSize = 21;
 export const characterZIndex = 200;
 export const unitInPx = 16;
 
@@ -20,6 +21,7 @@ export const layerCssClassOptions = {
     showLayerContainerOverflow: 'show-layer-container-overflow',
     showWalkableZone: 'show-walkable-zone',
     showWalkableZoneAddGrid: 'show-walkable-zone-add-grid',
+    showWalkableZoneAddStart: 'show-walkable-zone-add-start',
 }
 
 export enum Level {

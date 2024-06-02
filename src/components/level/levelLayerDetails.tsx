@@ -13,7 +13,6 @@ export interface ILevelLayerControlProps {
     levelData?: ILevelData;
     lookup?: Array<ISpriteMapLookup>;
     selectedLayerIndex: number;
-    showWalkableGrid: boolean;
     selectedSpriteItem?: string;
     selectedSpriteItemToPaste?: ISpriteMapLookup;
     layerClasses: Array<string>;
@@ -29,7 +28,7 @@ export const LevelLayerDetails: Component<ILevelLayerControlProps> = (props: ILe
     createEffect(() => {
         setCurrentLayer(props.levelData?.layers?.[props.selectedLayerIndex]);
 
-        if (props.showWalkableGrid == true ||
+        if (props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == true ||
             props.layerClasses.includes(layerCssClassOptions.showWalkableZone)) {
             props.unselectSpriteItem?.();
         }
@@ -42,44 +41,58 @@ export const LevelLayerDetails: Component<ILevelLayerControlProps> = (props: ILe
     const canSelectSprite = (): boolean =>
         props.selectedSpriteItemToPaste == null &&
         props.selectedSpriteItem == null &&
-        props.showWalkableGrid == false &&
-        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false;
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
 
     const canDeSelectSprite = (): boolean =>
         props.selectedSpriteItemToPaste == null &&
         props.selectedSpriteItem != null &&
-        props.showWalkableGrid == false &&
-        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false;
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
 
     const canNudgeSelectSprite = (): boolean =>
         props.selectedSpriteItemToPaste == null &&
         props.selectedSpriteItem != null &&
-        props.showWalkableGrid == false &&
-        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false;
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
 
     const canPlaceSelectSprite = (): boolean =>
         props.selectedSpriteItemToPaste != null &&
         props.selectedSpriteItem == null &&
-        props.showWalkableGrid == false &&
-        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false;
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
 
     const canAddWalkableSection = (): boolean =>
         props.selectedSpriteItemToPaste == null &&
         props.selectedSpriteItem == null &&
-        props.showWalkableGrid == true &&
-        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == true
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == true &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == true &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
+
+    const canAddWalkableStart = (): boolean =>
+        props.selectedSpriteItemToPaste == null &&
+        props.selectedSpriteItem == null &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == true &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == true;
 
     const canDeleteItem = (): boolean =>
         props.selectedSpriteItemToPaste == null &&
         props.selectedSpriteItem == null &&
-        props.showWalkableGrid == false &&
-        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
 
     const canDeleteWalkableSection = (): boolean =>
         props.selectedSpriteItemToPaste == null &&
         props.selectedSpriteItem == null &&
-        props.showWalkableGrid == false &&
-        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == true
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == true &&
+        props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
 
     return (
         <>
@@ -142,6 +155,9 @@ export const LevelLayerDetails: Component<ILevelLayerControlProps> = (props: ILe
                     </Show>
                     <Show when={canAddWalkableSection()}>
                         <Text><span>Left click</span>: 1st click to set the start point, 2nd click to set the end</Text>
+                    </Show>
+                    <Show when={canAddWalkableStart()}>
+                        <Text><span>Left click</span>: Set the start block of the level</Text>
                     </Show>
 
                     <Show when={canNudgeSelectSprite()}>

@@ -1,11 +1,10 @@
 import { LevelInteractionType } from "../constants/enum/levelInteractionType";
 import { Level } from "../constants/game";
+import { ILevelCoord } from "./levelCoord";
 
-export interface ILevelInteraction {
+export interface ILevelInteraction extends ILevelCoord {
     id: string;
     type: LevelInteractionType;
-    x: number;
-    y: number;
 }
 
 
