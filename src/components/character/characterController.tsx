@@ -1,23 +1,25 @@
-import { Component, createSignal, onCleanup, onMount } from 'solid-js';
 import classNames from 'classnames';
-import Mousetrap from 'mousetrap';
+import { Component, createSignal, onMount } from 'solid-js';
 
-import { Character } from './character';
+import {
+  characterContinuosStepTiming,
+  characterStepDuration,
+  movementAnimations,
+} from '../../constants/animation';
+import { CharacterCanMoveState } from '../../constants/enum/characterCanMoveState';
 import { CharacterStateEnum } from '../../constants/enum/characterStateEnum';
-import { getStateService } from '../../services/store/stateService';
-import { getProgressCoords } from '../../services/store/sections/progressState';
-import { knownKeybinds } from '../../constants/keybind';
-import { getCharacter, getScale } from '../../services/store/sections/userState';
-import { CharacterMoveState } from '../../constants/enum/characterMoveState';
 import { Direction } from '../../constants/enum/direction';
 import { movementDiff, unitInPx } from '../../constants/game';
-import { ILevelData } from '../../contracts/levelData';
+import { KeybindLookup } from '../../constants/keybind';
 import { ILevelCoord } from '../../contracts/levelCoord';
-import { getLogicServ } from '../../services/internal/logicService';
-import { CharacterCanMoveState } from '../../constants/enum/characterCanMoveState';
-import { preventDefault } from '../../helper/documentHelper';
-import { characterStepDuration, movementAnimations } from '../../constants/animation';
+import { ILevelData } from '../../contracts/levelData';
 import { timeout } from '../../helper/asyncHelper';
+import { mapKeyBindToDirection, useKeyboard } from '../../hook/useKeyboard';
+import { getLogicServ } from '../../services/internal/logicService';
+import { getProgressCoords } from '../../services/store/sections/progressState';
+import { getCharacter } from '../../services/store/sections/userState';
+import { getStateService } from '../../services/store/stateService';
+import { Character } from './character';
 
 interface ICharacterInMotionProps {
   levelData: ILevelData;
@@ -38,10 +40,7 @@ export const CharacterController: Component<ICharacterInMotionProps> = (
   );
 
   onMount(() => {
-    Mousetrap.bind(knownKeybinds.w, (e: any) => moveCharacter(e, Direction.up));
-    Mousetrap.bind(knownKeybinds.s, (e: any) => moveCharacter(e, Direction.down));
-    Mousetrap.bind(knownKeybinds.a, (e: any) => moveCharacter(e, Direction.left));
-    Mousetrap.bind(knownKeybinds.d, (e: any) => moveCharacter(e, Direction.right));
+    useKeyboard(moveCharacter);
 
     const isInValidPos = getLogicServ().canMove(props.levelData, progressCoords());
     if (isInValidPos === CharacterCanMoveState.denied) {
@@ -49,18 +48,10 @@ export const CharacterController: Component<ICharacterInMotionProps> = (
     }
   });
 
-  onCleanup(() => {
-    Mousetrap.unbind(knownKeybinds.w);
-    Mousetrap.unbind(knownKeybinds.s);
-    Mousetrap.unbind(knownKeybinds.a);
-    Mousetrap.unbind(knownKeybinds.d);
-  });
-
-  const moveCharacter = (e: any, direction: Direction) => {
-    preventDefault(e);
-
+  const moveCharacter = (_: unknown, keybind: KeybindLookup) => {
     if (isMoving()) return;
 
+    const direction = mapKeyBindToDirection(keybind);
     const diffCoords = movementDiff[direction];
     const xDiff = diffCoords[0];
     const yDiff = diffCoords[1];
@@ -94,7 +85,7 @@ export const CharacterController: Component<ICharacterInMotionProps> = (
     await timeout(characterStepDuration / 2);
     setCharAnimState(animFrames[stepIndex + 1]);
 
-    await timeout(characterStepDuration / 2);
+    await timeout(characterStepDuration / 2 - characterContinuosStepTiming);
     setCharAnimState(animFrames[0]);
     setStepCount((i) => i + 1);
     setIsMoving(false);
@@ -108,9 +99,9 @@ export const CharacterController: Component<ICharacterInMotionProps> = (
       style={{
         width: `${unitInPx}px`,
         height: `${unitInPx}px`,
-        transform: `translate(${progressCoords().x * unitInPx}px, ${
-          progressCoords().y * unitInPx
-        }px) translate(-2px, -2px)`,
+        transform: `translate(${progressCoords().x * unitInPx - 2}px, ${
+          progressCoords().y * unitInPx - 2
+        }px)`,
       }}
     >
       <Character charIndex={charIndex()} state={charAnimState()} />

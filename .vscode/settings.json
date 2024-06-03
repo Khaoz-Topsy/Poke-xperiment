@@ -7,7 +7,6 @@
     "prettier.printWidth": 100,
     "cSpell.language": "en-GB,en-US",
     "cSpell.words": [
-        "Keybinds",
         "APIV",
         "autodocs",
         "bodyparser",
@@ -21,7 +20,10 @@
         "githubrelease",
         "gitmoji",
         "hcaptcha",
+        "keybind",
+        "Keybinds",
         "Khaoz",
+        "konami",
         "Kurt",
         "Lourens",
         "nameof",
@@ -32,6 +34,7 @@
         "openapi",
         "privacypolicytemplate",
         "pullrequest",
+        "regen",
         "solidjs",
         "tada",
         "TLDR",
@@ -40,6 +43,7 @@
         "tspaths",
         "typedi",
         "typeof",
+        "uuidv",
         "Youtuber"
     ],
     "cSpell.ignorePaths": [
