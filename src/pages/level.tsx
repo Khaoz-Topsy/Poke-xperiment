@@ -7,19 +7,19 @@ import { getScale } from '../services/store/sections/userState';
 import { getStateService } from '../services/store/stateService';
 
 export const LevelPage: Component = () => {
-    const stateRef = getStateService();
-    const [uiScale, setUiScale] = getScale(stateRef);
+  const stateRef = getStateService();
+  const [uiScale, setUiScale] = getScale(stateRef);
 
-    createEffect(() => {
-        updateCustomStyleTag(`poke-sprite-user-style`, `:root { --level-scale: ${((uiScale() ?? 100) / 100)} }`);
-    });
-
-    return (
-        <CommonLayout>
-            <LevelWrapper
-                uiScale={uiScale()}
-                setUiScale={(newValue: number) => setUiScale(newValue)}
-            />
-        </CommonLayout>
+  createEffect(() => {
+    updateCustomStyleTag(
+      `poke-sprite-user-style`,
+      `:root { --level-scale: ${(uiScale() ?? 100) / 100} }`,
     );
+  });
+
+  return (
+    <CommonLayout>
+      <LevelWrapper uiScale={uiScale()} setUiScale={(newValue: number) => setUiScale(newValue)} />
+    </CommonLayout>
+  );
 };

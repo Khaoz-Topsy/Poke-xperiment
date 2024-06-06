@@ -1,30 +1,32 @@
 import { Box, Button, Center } from '@hope-ui/solid';
 import classNames from 'classnames';
-import Mousetrap from 'mousetrap';
-import { Component, For, Show, createSignal, onCleanup, onMount } from 'solid-js';
+import { Component, For, Show, createSignal, onMount } from 'solid-js';
 
 import { CommonLayout } from '../components/common/layout';
 import { CenterLoading } from '../components/core/loading';
 import { LevelContainer } from '../components/level/levelContainer';
 import { LevelControlPasteGrid } from '../components/level/levelControlPasteGrid';
-import { LevelControlSpriteItem } from '../components/level/levelControlSpriteItem';
 import { LevelItem } from '../components/level/levelItem';
+import { LevelItemSelectorModal } from '../components/level/levelItemSelectorModal';
 import { LevelLayer } from '../components/level/levelLayer';
 import { LevelLayerControl } from '../components/level/levelLayerControl';
+import { LevelLayerDetails } from '../components/level/levelLayerDetails';
 import { LevelSelectorModal } from '../components/level/levelSelector';
 import { WalkableItem } from '../components/level/walkableItem';
 import { NetworkState } from '../constants/enum/networkState';
 import { Level, layerCssClassOptions, unitInPx } from '../constants/game';
-import { KeybindLookup, knownKeybinds } from '../constants/keybind';
+import { KeybindLookup } from '../constants/keybind';
 import { ILevelCoord } from '../contracts/levelCoord';
 import { ILevelData } from '../contracts/levelData';
 import { ILevelLayer } from '../contracts/levelLayer';
 import { ILevelTile } from '../contracts/levelTile';
 import { ILevelWalkable } from '../contracts/levelWalkable';
-import { SpriteItemType } from '../contracts/spriteItem';
 import { ISpriteMapLookup, ISpriteMapLookupContainer } from '../contracts/spriteMapLookup';
+import { copyToClipboard } from '../helper/documentHelper';
 import { uuidv4 } from '../helper/guidHelper';
 import { stringInputPopup } from '../helper/popupHelper';
+import { anyObject } from '../helper/typescriptHacks';
+import { mapKeyBindToCoords, useKeyboard } from '../hook/useKeyboard';
 import {
   addLayerMapper,
   addSpriteToMapMapper,
@@ -37,11 +39,6 @@ import { getLevelServ } from '../services/internal/levelService';
 import { getSpriteMapServ } from '../services/internal/spriteMapService';
 import { getScale } from '../services/store/sections/userState';
 import { getStateService } from '../services/store/stateService';
-import { copyToClipboard } from '../helper/documentHelper';
-import { LevelItemSelectorModal } from '../components/level/levelItemSelectorModal';
-import { LevelLayerDetails } from '../components/level/levelLayerDetails';
-import { anyObject } from '../helper/typescriptHacks';
-import { mapKeyBindToCoords, useKeyboard } from '../hook/useKeyboard';
 
 export const LevelBuilderPage: Component = () => {
   const stateRef = getStateService();
@@ -305,7 +302,13 @@ export const LevelBuilderPage: Component = () => {
               </For>
             </Show>
             <Show when={layerClasses().includes(layerCssClassOptions.showWalkableZone)}>
-              <LevelLayer layer={{ id: 'walkable-layer', name: 'Walkable Layer', items: [] }}>
+              <LevelLayer
+                layer={{
+                  id: 'walkable-layer',
+                  name: 'Walkable Layer',
+                  items: [],
+                }}
+              >
                 <For each={levelData()?.walkableTiles ?? []}>
                   {(walkable: ILevelWalkable) => (
                     <WalkableItem {...walkable} onRightClick={removeWalkableGridItem} />

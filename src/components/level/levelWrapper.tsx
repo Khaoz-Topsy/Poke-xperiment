@@ -20,76 +20,75 @@ import { Link } from '@solidjs/router';
 import { routes } from '../../constants/route';
 
 export interface ILevelCompProps {
-    uiScale: number;
-    setUiScale: (newValue: number) => void;
-    wrapper?: (name: string, children: JSX.Element) => JSX.Element;
+  uiScale: number;
+  setUiScale: (newValue: number) => void;
+  wrapper?: (name: string, children: JSX.Element) => JSX.Element;
 }
 
 export const LevelWrapper: Component<ILevelCompProps> = (props: ILevelCompProps) => {
-    const stateRef = getStateService();
-    const [progressLvl] = getProgressLevel(stateRef);
+  const stateRef = getStateService();
+  const [progressLvl] = getProgressLevel(stateRef);
 
-    const [networkState, setNetworkState] = createSignal<NetworkState>(NetworkState.Loading);
-    const [levelData, setLevelData] = createSignal<ILevelData>();
-    const [mapLookup, setMapLookup] = createSignal<ISpriteMapLookupContainer>();
+  const [networkState, setNetworkState] = createSignal<NetworkState>(NetworkState.Loading);
+  const [levelData, setLevelData] = createSignal<ILevelData>();
+  const [mapLookup, setMapLookup] = createSignal<ISpriteMapLookupContainer>();
 
-    onMount(() => {
-        const allPromises = [
-            loadSpriteMap(),
-            loadLevel(),
-        ];
-        Promise.all(allPromises)
-            .then(() => setNetworkState(NetworkState.Success))
-            .catch(() => setNetworkState(NetworkState.Error));
-    });
+  onMount(() => {
+    const allPromises = [loadSpriteMap(), loadLevel()];
+    Promise.all(allPromises)
+      .then(() => setNetworkState(NetworkState.Success))
+      .catch(() => setNetworkState(NetworkState.Error));
+  });
 
-    const loadSpriteMap = async () => {
-        const spriteMap = await getSpriteMapServ().getSpriteMap();
-        setMapLookup(spriteMap);
-    }
+  const loadSpriteMap = async () => {
+    const spriteMap = await getSpriteMapServ().getSpriteMap();
+    setMapLookup(spriteMap);
+  };
 
-    const loadLevel = async () => {
-        const levelData = await getLevelServ().loadLevel(progressLvl())
-        setLevelData(levelData);
-    }
+  const loadLevel = async () => {
+    const levelData = await getLevelServ().loadLevel(progressLvl());
+    setLevelData(levelData);
+  };
 
-    return (
-        <>
-            <Show when={networkState() == NetworkState.Error}>
-                <Flex w="100%" h="100vh" justifyContent="center" flexDirection="column" position="relative">
-                    <PageHeader text="Something went wrong"></PageHeader>
-                    <Center>
-                        <Link href={routes.home}>
-                            <Button>Go home</Button>
-                        </Link>
-                    </Center>
-                </Flex>
-            </Show>
-            <Show when={networkState() == NetworkState.Loading}>
-                <CenterLoading />
-            </Show>
-            <Show when={networkState() == NetworkState.Success && levelData() != null && mapLookup() != null}>
-                <LevelContainer
-                    name={levelData()?.name ?? 'unknown'}
-                    defaultBackgroundTile={levelData()?.defaultBackgroundTile ?? ''}
-                    uiScale={props.uiScale}
-                    setUiScale={props.setUiScale}
-                    wrapper={props.wrapper}
-                >
-                    <For each={levelData()!.layers}>
-                        {(layer: ILevelLayer) => (
-                            <LevelLayer layer={layer}>
-                                <For each={layer.items}>
-                                    {(level: ILevelTile) => (
-                                        <LevelItem {...level} lookup={mapLookup()!.definitions} />
-                                    )}
-                                </For>
-                            </LevelLayer>
-                        )}
-                    </For>
-                    <CharacterController levelData={levelData()!} />
-                </LevelContainer >
-            </Show >
-        </>
-    );
+  return (
+    <>
+      <Show when={networkState() == NetworkState.Error}>
+        <Flex w="100%" h="100vh" justifyContent="center" flexDirection="column" position="relative">
+          <PageHeader text="Something went wrong"></PageHeader>
+          <Center>
+            <Link href={routes.home}>
+              <Button>Go home</Button>
+            </Link>
+          </Center>
+        </Flex>
+      </Show>
+      <Show when={networkState() == NetworkState.Loading}>
+        <CenterLoading />
+      </Show>
+      <Show
+        when={networkState() == NetworkState.Success && levelData() != null && mapLookup() != null}
+      >
+        <LevelContainer
+          name={levelData()?.name ?? 'unknown'}
+          defaultBackgroundTile={levelData()?.defaultBackgroundTile ?? ''}
+          uiScale={props.uiScale}
+          setUiScale={props.setUiScale}
+          wrapper={props.wrapper}
+        >
+          <For each={levelData()!.layers}>
+            {(layer: ILevelLayer) => (
+              <LevelLayer layer={layer}>
+                <For each={layer.items}>
+                  {(level: ILevelTile) => (
+                    <LevelItem {...level} lookup={mapLookup()!.definitions} />
+                  )}
+                </For>
+              </LevelLayer>
+            )}
+          </For>
+          <CharacterController levelData={levelData()!} />
+        </LevelContainer>
+      </Show>
+    </>
+  );
 };

@@ -1,19 +1,19 @@
-import { Component, For } from "solid-js";
+import { Component, For } from 'solid-js';
 
 interface IProps {
-    defaultBackgroundTile: string;
+  defaultBackgroundTile: string;
 }
 
 export const LevelBackground: Component<IProps> = (props: IProps) => {
-    return (
-        <div class="level-bg">
-            <div
-                class="content"
-                style={{
-                    'background-image': `var(--sprite-item-${props.defaultBackgroundTile})`,
-                }}
-                draggable={false}
-            ></div>
-        </div>
-    );
-}
+  return (
+    <div class="level-bg">
+      <div
+        class="content"
+        style={{
+          'background-image': `var(--sprite-item-${props.defaultBackgroundTile})`,
+        }}
+        draggable={false}
+      ></div>
+    </div>
+  );
+};

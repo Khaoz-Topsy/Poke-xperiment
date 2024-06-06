@@ -1,3 +1,3 @@
 export enum LevelInteractionType {
-    navigateToLevel,
+  navigateToLevel,
 }

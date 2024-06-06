@@ -1,14 +1,14 @@
 export const knownKeybinds = {
-  esc: 'escape',
-  up: 'up',
-  down: 'down',
-  left: 'left',
-  right: 'right',
-  w: 'w',
-  s: 's',
-  a: 'a',
-  d: 'd',
-  konami: 'up up down down left right left right b a enter',
+  esc: "escape",
+  up: "up",
+  down: "down",
+  left: "left",
+  right: "right",
+  w: "w",
+  s: "s",
+  a: "a",
+  d: "d",
+  konami: "up up down down left right left right b a enter",
 } as const;
 
 export type KeybindLookup = keyof typeof knownKeybinds;

@@ -3,11 +3,10 @@ import { Level } from "../constants/game";
 import { ILevelCoord } from "./levelCoord";
 
 export interface ILevelInteraction extends ILevelCoord {
-    id: string;
-    type: LevelInteractionType;
+  id: string;
+  type: LevelInteractionType;
 }
 
-
 export interface ILevelNavigateInteraction extends ILevelInteraction {
-    level: Level;
+  level: Level;
 }

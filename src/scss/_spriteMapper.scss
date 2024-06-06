@@ -1,70 +1,70 @@
 .sprite-map {
-    .definition-block,
-    .definition-sprite-map {
-        position: absolute;
-        top: 0;
-        left: 0;
+  .definition-block,
+  .definition-sprite-map {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .definition-block {
+    background-color: rgba(255, 0, 0, 0.2);
+    border: 3px dashed rgba(255, 0, 0, 0.8);
+    border-radius: 5px;
+    transition: transform 100ms ease-in-out;
+  }
+
+  .definition-sprite-map {
+    max-width: unset;
+  }
+
+  .sprite-mapper-tile {
+    cursor: pointer;
+
+    &.active {
+      .card {
+        padding: calc(1em - 5px);
+        border: 5px dashed darkgray;
+      }
     }
 
-    .definition-block {
-        background-color: rgba(255, 0, 0, 0.2);
-        border: 3px dashed rgba(255, 0, 0, 0.8);
-        border-radius: 5px;
-        transition: transform 100ms ease-in-out;
+    .card {
+      padding: 1em;
     }
 
-    .definition-sprite-map {
-        max-width: unset;
+    .sprite {
+      height: 50px;
+      width: 50px;
+      margin-right: 1em;
+
+      &.size-1-1 {
+        transform: scale(2);
+      }
     }
 
-    .sprite-mapper-tile {
-        cursor: pointer;
-
-        &.active {
-            .card {
-                padding: calc(1em - 5px);
-                border: 5px dashed darkgray;
-            }
-        }
-
-        .card {
-            padding: 1em;
-        }
-
-        .sprite {
-            height: 50px;
-            width: 50px;
-            margin-right: 1em;
-
-            &.size-1-1 {
-                transform: scale(2);
-            }
-        }
-
-        .details {
-            justify-content: center;
-        }
+    .details {
+      justify-content: center;
     }
+  }
 }
 
 .sprite-mapper-tile {
-    position: relative;
+  position: relative;
 
-    .edit,
-    .close {
-        position: absolute;
-        right: 0.125em;
+  .edit,
+  .close {
+    position: absolute;
+    right: 0.125em;
 
-        &:focus {
-            box-shadow: none;
-        }
+    &:focus {
+      box-shadow: none;
     }
+  }
 
-    .close {
-        top: 0.125em;
-    }
+  .close {
+    top: 0.125em;
+  }
 
-    .edit {
-        bottom: 0.125em;
-    }
+  .edit {
+    bottom: 0.125em;
+  }
 }

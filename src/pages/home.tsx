@@ -13,56 +13,57 @@ import { getCharacter, getUserName } from '../services/store/sections/userState'
 import { getStateService } from '../services/store/stateService';
 
 export const HomePage: Component = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const stateRef = getStateService();
-    const [userName, setUserName] = getUserName(stateRef);
-    const [charIndex, setCharIndex] = getCharacter(stateRef);
-    const [level, setLevel] = getProgressLevel(stateRef);
+  const stateRef = getStateService();
+  const [userName, setUserName] = getUserName(stateRef);
+  const [charIndex, setCharIndex] = getCharacter(stateRef);
+  const [level, setLevel] = getProgressLevel(stateRef);
 
-    const startGame = () => {
-        setLevel(Level.intro);
-        setTimeout(() => navigate(routes.level), 250);
-    }
+  const startGame = () => {
+    setLevel(Level.intro);
+    setTimeout(() => navigate(routes.level), 250);
+  };
 
-    return (
-        <CommonLayout>
-            <Center h="100vh" class="home-page">
-                <Card>
-                    <Box p="1em">
-                        <Center mb="1em">
-                            <CharacterSelectionModal
-                                charIndex={charIndex()}
-                                selectCharacter={setCharIndex}
-                            />
-                        </Center>
-                        <FormControl mb="1em">
-                            <FormLabel for="username">Username</FormLabel>
-                            <Input
-                                id="username"
-                                type="text"
-                                value={userName()}
-                                onChange={(e: any) => setUserName(e?.target?.value ?? '')}
-                            />
-                        </FormControl>
-                        <Show
-                            when={level() != Level.none}
-                            fallback={<Button w="100%" onClick={startGame}>Start game</Button>}
-                        >
-                            <Button w="100%" onClick={() => navigate(routes.level)}>Continue game</Button>
-                        </Show>
-                    </Box>
-                </Card>
+  return (
+    <CommonLayout>
+      <Center h="100vh" class="home-page">
+        <Card>
+          <Box p="1em">
+            <Center mb="1em">
+              <CharacterSelectionModal charIndex={charIndex()} selectCharacter={setCharIndex} />
             </Center>
-        </CommonLayout>
-    );
+            <FormControl mb="1em">
+              <FormLabel for="username">Username</FormLabel>
+              <Input
+                id="username"
+                type="text"
+                value={userName()}
+                onChange={(e: any) => setUserName(e?.target?.value ?? '')}
+              />
+            </FormControl>
+            <Show
+              when={level() != Level.none}
+              fallback={
+                <Button w="100%" onClick={startGame}>
+                  Start game
+                </Button>
+              }
+            >
+              <Button w="100%" onClick={() => navigate(routes.level)}>
+                Continue game
+              </Button>
+            </Show>
+          </Box>
+        </Card>
+      </Center>
+    </CommonLayout>
+  );
 };
 
 export const RedirectToHome: Component = () => {
-    const navigate = useNavigate();
-    navigate(routes.actualHome);
+  const navigate = useNavigate();
+  navigate(routes.actualHome);
 
-    return (
-        <CenterLoading />
-    );
+  return <CenterLoading />;
 };

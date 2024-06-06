@@ -9,9 +9,7 @@
     "jsx": "preserve",
     "experimentalDecorators": true,
     "jsxImportSource": "solid-js",
-    "types": [
-      "vite/client"
-    ],
+    "types": ["vite/client"],
     "noEmit": true,
     "isolatedModules": true
   }

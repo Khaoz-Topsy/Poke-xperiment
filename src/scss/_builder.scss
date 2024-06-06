@@ -1,62 +1,62 @@
 .builder {
-    &.disable-layer-level-opacity {
-        .level-layer.not-active {
-            opacity: 1;
-        }
+  &.disable-layer-level-opacity {
+    .level-layer.not-active {
+      opacity: 1;
+    }
+  }
+
+  &.show-layer-container-overflow {
+    .level-container {
+      overflow: visible;
+    }
+  }
+
+  &.show-walkable-zone-add-grid .walkable-layer {
+    opacity: 0.75;
+  }
+
+  &.show-3d .level-container {
+    overflow: visible;
+    transform: rotate(20deg) skew(-25deg);
+
+    .level-layer {
+      opacity: 1;
+      transform: translate(calc(var(--layer-position) * -1), calc(var(--layer-position) * -1));
+    }
+  }
+
+  .level-tile,
+  .sprite-tile,
+  .walkable-tile {
+    &:after {
+      content: ' ';
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.25);
+      border-color: rgb(80, 80, 80);
+      border-radius: 2px;
+      border-style: dashed;
+      border-width: 2px;
+      opacity: 0;
+      transition: opacity 250ms ease;
     }
 
-    &.show-layer-container-overflow {
-        .level-container {
-            overflow: visible;
-        }
+    &:hover:after {
+      opacity: 0.5;
     }
 
-    &.show-walkable-zone-add-grid .walkable-layer {
-        opacity: 0.75;
+    &.is-active:after {
+      opacity: 1;
     }
 
-    &.show-3d .level-container {
-        overflow: visible;
-        transform: rotate(20deg) skew(-25deg);
+    &.is-active {
+      z-index: 9999;
 
-        .level-layer {
-            opacity: 1;
-            transform: translate(calc(var(--layer-position) * -1), calc(var(--layer-position) * -1));
-        }
+      &:after {
+        // border-color: $satisfactoryPrimaryColour;
+        opacity: 1;
+      }
     }
-
-    .level-tile,
-    .sprite-tile,
-    .walkable-tile {
-        &:after {
-            content: " ";
-            display: block;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.25);
-            border-color: rgb(80, 80, 80);
-            border-radius: 2px;
-            border-style: dashed;
-            border-width: 2px;
-            opacity: 0;
-            transition: opacity 250ms ease;
-        }
-
-        &:hover:after {
-            opacity: 0.5;
-        }
-
-        &.is-active:after {
-            opacity: 1;
-        }
-
-        &.is-active {
-            z-index: 9999;
-
-            &:after {
-                // border-color: $satisfactoryPrimaryColour;
-                opacity: 1;
-            }
-        }
-    }
+  }
 }

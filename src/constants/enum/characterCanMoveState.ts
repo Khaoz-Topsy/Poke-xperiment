@@ -1,5 +1,5 @@
 export enum CharacterCanMoveState {
-    denied,
-    allowed,
-    interaction
+  denied,
+  allowed,
+  interaction,
 }

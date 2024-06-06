@@ -1,88 +1,88 @@
-@import "var";
-@import "misc";
-@import "level";
-@import "sidebar";
-@import "character";
-@import "spriteMapper";
-@import "draggable";
-@import "builder";
-@import "layer";
-@import "scrollbar";
-@import "breakpoint";
+@import 'var';
+@import 'misc';
+@import 'level';
+@import 'sidebar';
+@import 'character';
+@import 'spriteMapper';
+@import 'draggable';
+@import 'builder';
+@import 'layer';
+@import 'scrollbar';
+@import 'breakpoint';
 
 :root {
-    --bg-color: #151718;
-    --bg-hover-color: #0b0b0c;
-    --line-gray-color: #8c9297;
-    --content-text: $primaryColour;
-    --link-color: $linkColour;
-    --error-text-color: #8b0000;
-    --text-max-lines: none;
+  --bg-color: #151718;
+  --bg-hover-color: #0b0b0c;
+  --line-gray-color: #8c9297;
+  --content-text: $primaryColour;
+  --link-color: $linkColour;
+  --error-text-color: #8b0000;
+  --text-max-lines: none;
 }
 
 html body {
-    font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
 
-    ::selection {
-        background: $highlightColour;
-        color: white;
-    }
+  ::selection {
+    background: $highlightColour;
+    color: white;
+  }
 
-    ::-moz-selection {
-        background: $highlightColour;
-        color: white;
-    }
+  ::-moz-selection {
+    background: $highlightColour;
+    color: white;
+  }
 
-    ::-webkit-calendar-picker-indicator {
-        filter: invert(100%);
-    }
+  ::-webkit-calendar-picker-indicator {
+    filter: invert(100%);
+  }
 
-    a {
-        color: $linkColour;
-    }
+  a {
+    color: $linkColour;
+  }
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .max-lines-1 {
-    white-space: nowrap;
-    overflow: hidden;
-    display: block;
-    text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  text-overflow: ellipsis;
 }
 
 .pos-abs {
-    position: absolute;
+  position: absolute;
 
-    &.top {
-        top: 0;
-    }
+  &.top {
+    top: 0;
+  }
 }
 
 .zoom-item-2 {
-    zoom: 2;
+  zoom: 2;
 }
 
 .sb-overlay {
-    z-index: 1001;
+  z-index: 1001;
 
-    .sb-content {
-        border-top: 0.2em solid rgba(255, 255, 255, 0.2);
-        background-color: var(--hope-colors-background);
+  .sb-content {
+    border-top: 0.2em solid rgba(255, 255, 255, 0.2);
+    background-color: var(--hope-colors-background);
 
-        .sb-handle {
-            background-color: var(--line-gray-color);
-        }
+    .sb-handle {
+      background-color: var(--line-gray-color);
     }
+  }
 }

@@ -7,29 +7,30 @@ import { initialState, IState } from './initialState';
 
 @Service()
 export class StateService {
-    private _internalState: IState;
-    private _internalStateFunc: SetStoreFunction<IState>;
-    private _stateKey = 'poke-clone';
+  private _internalState: IState;
+  private _internalStateFunc: SetStoreFunction<IState>;
+  private _stateKey = 'poke-clone';
 
-    constructor() {
-        const localInitialState = getStorage().get<IState>(this._stateKey) ?? initialState;
-        const [state, setState] = createStore<IState>(localInitialState);
-        this._internalState = state;
-        this._internalStateFunc = setState;
-    }
+  constructor() {
+    const localInitialState = getStorage().get<IState>(this._stateKey) ?? initialState;
+    const [state, setState] = createStore<IState>(localInitialState);
+    this._internalState = state;
+    this._internalStateFunc = setState;
+  }
 
-    getState = () => this._internalState;
-    setState = (fn: (state: IState) => void) => this._internalStateFunc((currState: IState) => {
-        const newStateFunc = produce(fn);
-        const newState = newStateFunc(currState);
+  getState = () => this._internalState;
+  setState = (fn: (state: IState) => void) =>
+    this._internalStateFunc((currState: IState) => {
+      const newStateFunc = produce(fn);
+      const newState = newStateFunc(currState);
 
-        this.saveToLocalStorage(newState);
-        return newState;
+      this.saveToLocalStorage(newState);
+      return newState;
     });
 
-    saveToLocalStorage = debounceLeading((newState: IState) => {
-        getStorage().set(this._stateKey, newState);
-    }, 250);
+  saveToLocalStorage = debounceLeading((newState: IState) => {
+    getStorage().set(this._stateKey, newState);
+  }, 250);
 }
 
 export const getStateService = () => Container.get(StateService);

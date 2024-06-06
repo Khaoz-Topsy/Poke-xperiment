@@ -1,5 +1,5 @@
 export enum CharacterMoveState {
-    idle,
-    moving,
-    interactionRequired
+  idle,
+  moving,
+  interactionRequired,
 }

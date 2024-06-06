@@ -11,10 +11,10 @@
   [![gitmoji](https://raw.githubusercontent.com/Khaoz-Topsy/Khaoz-Topsy/master/.github/gitmoji.svg?raw=true)](https://gitmoji.dev)<br />
   ![Profile views](https://komarev.com/ghpvc/?username=Khaoz-Topsy&color=green&style=for-the-badge)
 
-  [![Mastodon](https://img.shields.io/mastodon/follow/109315859662532146?color=%2300ff00&domain=https%3A%2F%2Fnomanssky.social&style=for-the-badge&logo=mastodon)][mastodon]
-  [![Discord](https://img.shields.io/discord/625007826913198080?style=for-the-badge&label=Chat%20on%20Discord&logo=discord)][discord]<br />
-  [![Follow on Twitter](https://img.shields.io/badge/follow-%40AssistantNMS-1d9bf0?logo=twitter&style=for-the-badge)][assistantnmsTwitter]<br />
-  
+[![Mastodon](https://img.shields.io/mastodon/follow/109315859662532146?color=%2300ff00&domain=https%3A%2F%2Fnomanssky.social&style=for-the-badge&logo=mastodon)][mastodon]
+[![Discord](https://img.shields.io/discord/625007826913198080?style=for-the-badge&label=Chat%20on%20Discord&logo=discord)][discord]<br />
+[![Follow on Twitter](https://img.shields.io/badge/follow-%40AssistantNMS-1d9bf0?logo=twitter&style=for-the-badge)][assistantnmsTwitter]<br />
+
   <br /> 
 </div>
  
@@ -35,7 +35,6 @@ I grew up with the top down pokemon games like [Pokemon Emerald](https://bulbape
   - I had the idea of exporting this "game" as a webcomponent a bit late, else I would have written it in something more appropriate like Svelte or Lit 😅
 - A little bit of multiplayer, seeing others walking around realtime with [PeerJS](https://peerjs.com)
 
-
 ---
 
 ## 🥅 Goals
@@ -47,16 +46,17 @@ I grew up with the top down pokemon games like [Pokemon Emerald](https://bulbape
 ---
 
 ## 🏃‍♂️ Running the project
-  
+
 ### Requirements
+
 - NodeJS (16+)
 
 ### Steps:
+
 1. Clone this repository
 2. `npm i`
 3. `npm run dev`
 4. Go to https://localhost:3000
-
 
 <!-- Links used in the page -->
 
@@ -70,8 +70,8 @@ I grew up with the top down pokemon games like [Pokemon Emerald](https://bulbape
 [nmscd]: https://github.com/NMSCD?ref=AssistantDKMGithub
 
 <!-- Other -->
+
 [mbincompiler]: https://github.com/monkeyman192/MBINCompiler
 [flutter]: https://docs.flutter.dev/get-started/install
 [androidStudio]: https://developer.android.com/studio
 [codeMagic]: https://codemagic.io
-
