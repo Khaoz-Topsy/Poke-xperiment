@@ -30,7 +30,7 @@ export const LevelControlPasteGrid: Component<IProps> = (props: IProps) => {
       if (numSibling > 1) numSibling--;
 
       for (let colIndex = 0; colIndex < colSpanCount; colIndex++) {
-        if (rowIndex == 0 && colIndex == colSpanCount - 1) continue;
+        if (rowIndex === 0 && colIndex === colSpanCount - 1) continue;
 
         const siblingCss = Array.from(Array(numSibling + colIndex).keys())
           .map((d) => '+ .sprite-tile')

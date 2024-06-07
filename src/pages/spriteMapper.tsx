@@ -119,7 +119,7 @@ export const SpriteMapperPage: Component = () => {
       if (selectedDef == null) return prev;
 
       const newDefinitions = prev.definitions.map((def) => {
-        if (def.type == selectedDef.type) return selectedDef;
+        if (def.type === selectedDef.type) return selectedDef;
         return def;
       });
 
@@ -164,7 +164,7 @@ export const SpriteMapperPage: Component = () => {
           <Center>Map icons from a sprite image</Center>
         </Container>
         <Center class="sprite-map" flexGrow={1} position="relative">
-          <Show when={step() == 0}>
+          <Show when={step() === 0}>
             <Container pb="2em">
               <Flex gap="1em" px="1em" minH="50vh">
                 <Box flex={1}>
@@ -278,7 +278,7 @@ export const SpriteMapperPage: Component = () => {
               </Center>
             </Container>
           </Show>
-          <Show when={step() == 1}>
+          <Show when={step() === 1}>
             <Container pb="2em">
               <Flex gap="1em" px="1em" minH="50vh" maxH="75vh">
                 <VStack flex={1}>

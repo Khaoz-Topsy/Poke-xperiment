@@ -31,13 +31,18 @@ export const HomePage: Component = () => {
         <Card>
           <Box p="1em">
             <Center mb="1em">
-              <CharacterSelectionModal charIndex={charIndex()} selectCharacter={setCharIndex} />
+              <CharacterSelectionModal
+                charIndex={charIndex()}
+                selectCharacter={setCharIndex}
+                disabled={level() != Level.none}
+              />
             </Center>
             <FormControl mb="1em">
               <FormLabel for="username">Username</FormLabel>
               <Input
                 id="username"
                 type="text"
+                disabled={level() != Level.none}
                 value={userName()}
                 onChange={(e: any) => setUserName(e?.target?.value ?? '')}
               />

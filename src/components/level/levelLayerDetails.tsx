@@ -46,7 +46,7 @@ export const LevelLayerDetails: Component<ILevelLayerControlProps> = (
     setCurrentLayer(props.levelData?.layers?.[props.selectedLayerIndex]);
 
     if (
-      props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == true ||
+      props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) === true ||
       props.layerClasses.includes(layerCssClassOptions.showWalkableZone)
     ) {
       props.unselectSpriteItem?.();
@@ -54,7 +54,7 @@ export const LevelLayerDetails: Component<ILevelLayerControlProps> = (
 
     const currentItemId = props.selectedSpriteItem;
     const currentItemObj = props.levelData?.layers?.[props.selectedLayerIndex]?.items?.find(
-      (i) => i.id == currentItemId,
+      (i) => i.id === currentItemId,
     );
     setCurrentItemOnLayer(currentItemObj);
   });
@@ -62,58 +62,58 @@ export const LevelLayerDetails: Component<ILevelLayerControlProps> = (
   const canSelectSprite = (): boolean =>
     props.selectedSpriteItemToPaste == null &&
     props.selectedSpriteItem == null &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) === false &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) === false &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) === false;
 
   const canDeSelectSprite = (): boolean =>
     props.selectedSpriteItemToPaste == null &&
     props.selectedSpriteItem != null &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) === false &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) === false &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) === false;
 
   const canNudgeSelectSprite = (): boolean =>
     props.selectedSpriteItemToPaste == null &&
     props.selectedSpriteItem != null &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) === false &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) === false &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) === false;
 
   const canPlaceSelectSprite = (): boolean =>
     props.selectedSpriteItemToPaste != null &&
     props.selectedSpriteItem == null &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) === false &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) === false &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) === false;
 
   const canAddWalkableSection = (): boolean =>
     props.selectedSpriteItemToPaste == null &&
     props.selectedSpriteItem == null &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == true &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == true &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) === true &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) === true &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) === false;
 
   const canAddWalkableStart = (): boolean =>
     props.selectedSpriteItemToPaste == null &&
     props.selectedSpriteItem == null &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == true &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == true;
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) === false &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) === true &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) === true;
 
   const canDeleteItem = (): boolean =>
     props.selectedSpriteItemToPaste == null &&
     props.selectedSpriteItem == null &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == false &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) === false &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) === false &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) === false;
 
   const canDeleteWalkableSection = (): boolean =>
     props.selectedSpriteItemToPaste == null &&
     props.selectedSpriteItem == null &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) == false &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) == true &&
-    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) == false;
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddGrid) === false &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZone) === true &&
+    props.layerClasses.includes(layerCssClassOptions.showWalkableZoneAddStart) === false;
 
   return (
     <>
@@ -193,10 +193,6 @@ export const LevelLayerDetails: Component<ILevelLayerControlProps> = (
             <Text textAlign="center">
               <span>items: </span>
               {currentLayer()?.items?.length}
-            </Text>
-            <Text textAlign="center">
-              <span>zIndex: </span>
-              {currentLayer()?.zindex ?? 0}
             </Text>
           </Show>
 

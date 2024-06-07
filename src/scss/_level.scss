@@ -108,11 +108,16 @@
 }
 
 .select-sprite-item {
+  display: grid;
+  height: 100%;
+  grid-template-columns: repeat(auto-fill, var(--sprite-item-cell-size));
+  grid-template-rows: repeat(auto-fill, var(--sprite-item-cell-size));
+
   .sprite-tile {
     transition: transform 250ms ease-in-out;
 
     &:hover {
-      transform: scale(1.5);
+      transform: scale(1.25);
       z-index: 1000;
     }
 

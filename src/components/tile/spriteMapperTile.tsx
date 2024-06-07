@@ -17,7 +17,7 @@ export const SpriteMapperTile: Component<IProps> = (props: IProps) => {
   return (
     <GridItem
       class={classNames('sprite-mapper-tile', {
-        active: props.definition.type == props.selectedDefinition?.type,
+        active: props.definition.type === props.selectedDefinition?.type,
       })}
     >
       <Card overflowY="hidden">

@@ -80,7 +80,7 @@ export const stringInputPopup = async (props: IStringInputPopupProps): Promise<s
   if (props.focusOnInput) {
     await timeout(300);
     let queryStr = 'input.swal2-input';
-    if (props.input == 'textarea') queryStr = 'textarea.swal2-textarea';
+    if (props.input === 'textarea') queryStr = 'textarea.swal2-textarea';
     const swalInput: any = document.querySelector(queryStr);
     swalInput?.focus?.();
   }

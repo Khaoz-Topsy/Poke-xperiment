@@ -49,7 +49,7 @@ export const Dropdown: Component<IProps> = (props: IProps) => {
   };
 
   const getOptionFromValue = (value: string | number) => {
-    const matchingOpt = props.options.find((opt) => opt.value == value);
+    const matchingOpt = props.options.find((opt) => opt.value === value);
     return matchingOpt;
   };
 

@@ -11,23 +11,18 @@ import { HomePage, RedirectToHome } from './pages/home';
 import { LevelPage } from './pages/level';
 import { NotFoundPage } from './pages/notFound';
 import { getSpriteMapServ } from './services/internal/spriteMapService';
-import { getCharacter } from './services/store/sections/userState';
-import { getStateService } from './services/store/stateService';
 
 const AboutPage = lazy(() => import('./pages/about'));
 const LevelBuilderPage = lazy(() => import('./pages/builder'));
 const SpriteMapperPage = lazy(() => import('./pages/spriteMapper'));
 
 export const AppShell: Component = () => {
-  const stateRef = getStateService();
-  const [charIndex] = getCharacter(stateRef);
-
   const [networkState, setNetworkState] = createSignal<NetworkState>(NetworkState.Loading);
 
   onMount(() => {
     const allPromises = [
       getSpriteMapServ().loadDefaultSpriteMap(),
-      getSpriteMapServ().loadCharacterSprites(charIndex()),
+      getSpriteMapServ().loadCharacterSprites(),
     ];
     Promise.all(allPromises)
       .then(() => setNetworkState(NetworkState.Success))
@@ -41,13 +36,13 @@ export const AppShell: Component = () => {
 
   return (
     <>
-      <Show when={networkState() == NetworkState.Error}>
+      <Show when={networkState() === NetworkState.Error}>
         <h1>Error</h1>
       </Show>
-      <Show when={networkState() == NetworkState.Loading}>
+      <Show when={networkState() === NetworkState.Loading}>
         <CenterLoading />
       </Show>
-      <Show when={networkState() == NetworkState.Success}>
+      <Show when={networkState() === NetworkState.Success}>
         <Routes>
           <Route path={routes.about} component={AboutPage} />
           <Route path={routes.level} component={LevelPage} />

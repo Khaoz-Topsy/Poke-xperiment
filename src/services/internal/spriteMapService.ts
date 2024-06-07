@@ -58,7 +58,7 @@ export class SpriteMapService {
     return spriteMap;
   };
 
-  loadCharacterSprites = async (charIndex: number) => {
+  loadCharacterSprites = async () => {
     const spriteSource: string = '/assets/characters/default.png';
     //spriteMapLookup().source ?? (defaultSpriteMap.source!);
     cutImageFromOtherImage(spriteSource, (image: HTMLImageElement) => {

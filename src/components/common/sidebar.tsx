@@ -20,6 +20,7 @@ import { getStateService } from '../../services/store/stateService';
 import { OpenInNewIcon } from './icon/openInNewIcon';
 import { CustomImage } from './image';
 import { SidebarNavLink } from './sidebarNavLink';
+import classNames from 'classnames';
 
 export const Sidebar: Component = () => {
   const stateRef = getStateService();
@@ -32,7 +33,10 @@ export const Sidebar: Component = () => {
   return (
     <Flex
       as="nav"
-      class={isOpen() ? 'hide-scrollbar noselect close' : 'hide-scrollbar noselect expand'}
+      class={classNames('hide-scrollbar', 'noselect', {
+        close: isOpen(),
+        expand: isOpen(),
+      })}
       position="sticky"
       display="flex"
       direction="column"
@@ -49,13 +53,7 @@ export const Sidebar: Component = () => {
                 <CustomImage src="/assets/img/logo.png" alt="logo" maxHeight="75px" />
                 <Box m="$2" />
                 <Center>
-                  <Heading>
-                    Simple
-                    <br />
-                    Tera Raid
-                    <br />
-                    planner
-                  </Heading>
+                  <Heading>Poke-xperiment</Heading>
                 </Center>
               </Flex>
               <Box m={20} />
@@ -67,21 +65,21 @@ export const Sidebar: Component = () => {
           <VStack alignItems="flex-start" spacing="$1" mb="$6">
             <SidebarNavLink href={routes.actualHome}>Home</SidebarNavLink>
             <SidebarNavLink
-              href={externalUrl.assistantapps}
+              href={externalUrl.assistantApps}
               target="_blank"
               rel="noopener noreferrer"
             >
               AssistantApps Homepage <OpenInNewIcon />
             </SidebarNavLink>
             <SidebarNavLink
-              href={externalUrl.assistantappsDiscord}
+              href={externalUrl.assistantAppsDiscord}
               target="_blank"
               rel="noopener noreferrer"
             >
               Discord <OpenInNewIcon />
             </SidebarNavLink>
             <SidebarNavLink
-              href={externalUrl.assistantappsMastodon}
+              href={externalUrl.assistantAppsMastodon}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -94,7 +92,7 @@ export const Sidebar: Component = () => {
           <Box m={20} />
           <SidebarTitle>Data from</SidebarTitle>
           <VStack alignItems="flex-start" spacing="$1" mb="$6">
-            <SidebarNavLink href={externalUrl.pokeAPI} target="_blank" rel="noopener noreferrer">
+            <SidebarNavLink href={externalUrl.githubRepo} target="_blank" rel="noopener noreferrer">
               PokeApi <OpenInNewIcon />
             </SidebarNavLink>
           </VStack>
@@ -103,7 +101,10 @@ export const Sidebar: Component = () => {
           colorScheme="primary"
           aria-label="Close drawer"
           borderRadius="2em"
-          class={isOpen() ? 'drawer-icon close' : 'drawer-icon expand'}
+          class={classNames('drawer-icon', 'noselect', {
+            close: isOpen(),
+            expand: isOpen(),
+          })}
           onClick={() => setIsOpen(!isOpen())}
           icon={<span>☰</span>}
         />

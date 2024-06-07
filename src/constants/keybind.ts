@@ -1,17 +1,16 @@
-export const knownKeybinds = {
-  esc: "escape",
-  up: "up",
-  down: "down",
-  left: "left",
-  right: "right",
-  w: "w",
-  s: "s",
-  a: "a",
-  d: "d",
-  konami: "up up down down left right left right b a enter",
-} as const;
-
-export type KeybindLookup = keyof typeof knownKeybinds;
+export enum KeybindLookup {
+  escape,
+  up,
+  down,
+  left,
+  right,
+  w,
+  s,
+  a,
+  d,
+  space,
+  del,
+}
 
 export const knownKeyCodes = {
   enter: 13,

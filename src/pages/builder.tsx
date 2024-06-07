@@ -39,6 +39,7 @@ import { getLevelServ } from '../services/internal/levelService';
 import { getSpriteMapServ } from '../services/internal/spriteMapService';
 import { getScale } from '../services/store/sections/userState';
 import { getStateService } from '../services/store/stateService';
+import { SpriteItemType } from '../contracts/spriteItem';
 
 export const LevelBuilderPage: Component = () => {
   const stateRef = getStateService();
@@ -66,11 +67,12 @@ export const LevelBuilderPage: Component = () => {
       .then(() => setNetworkState(NetworkState.Success))
       .catch(() => setNetworkState(NetworkState.Error));
 
-    useKeyboard(moveSelected);
+    useKeyboard(handleKeybind);
   });
 
   const loadLevel = async (level: Level, regenIds: boolean) => {
     const levelData = await getLevelServ().loadLevel(level);
+    console.log(levelData);
     if (regenIds) {
       getLevelServ().regenIds(levelData);
     }
@@ -115,7 +117,7 @@ export const LevelBuilderPage: Component = () => {
   };
 
   const toggleSelected = (levelItemId: string) => {
-    const isActive = levelItemId == selectedSpriteItem();
+    const isActive = levelItemId === selectedSpriteItem();
     if (isActive) {
       setSelectedSpriteItem(undefined);
       return;
@@ -133,9 +135,14 @@ export const LevelBuilderPage: Component = () => {
     setSelectedSpriteItemToPaste(spriteItem);
   };
 
+  const unselectSpriteItems = () => {
+    setSelectedSpriteItem(undefined);
+    setSelectedSpriteItemToPaste(undefined);
+  };
+
   const pasteSprite = (colIndex: number, rowIndex: number) => {
     const specs = (mapLookup()?.definitions ?? []).find(
-      (d) => d.type == selectedSpriteItemToPaste()?.type,
+      (d) => d.type === selectedSpriteItemToPaste()?.type,
     );
     if (specs == null) return;
 
@@ -152,16 +159,31 @@ export const LevelBuilderPage: Component = () => {
     );
   };
 
-  const moveSelected = (_: unknown, keybind: KeybindLookup) => {
-    if (selectedSpriteItem() == null) {
+  const handleKeybind = (_: unknown, keybind: KeybindLookup) => {
+    if (keybind === KeybindLookup.escape) {
+      unselectSpriteItems();
+      return;
+    }
+    if (keybind === KeybindLookup.del) {
+      const currentItem = selectedSpriteItem();
+      if (currentItem == null) return;
+      removeSpriteFromMap(currentItem);
+      unselectSpriteItems();
       return;
     }
 
     const [x, y] = mapKeyBindToCoords(keybind);
+    moveSelected(x, y);
+  };
+
+  const moveSelected = (x: number, y: number) => {
+    if (selectedSpriteItem() == null) {
+      return;
+    }
 
     const currentItemId = selectedSpriteItem()!;
     const currentItemObj = levelData()?.layers?.[selectedLayerIndex()]?.items?.find(
-      (i) => i.id == currentItemId,
+      (i) => i.id === currentItemId,
     );
     if (currentItemObj == null) return;
 
@@ -210,13 +232,13 @@ export const LevelBuilderPage: Component = () => {
   return (
     <CommonLayout>
       <div class={classNames('builder', layerClasses())}>
-        <Show when={networkState() == NetworkState.Error}>
+        <Show when={networkState() === NetworkState.Error}>
           <h1>Error</h1>
         </Show>
-        <Show when={networkState() == NetworkState.Loading}>
+        <Show when={networkState() === NetworkState.Loading}>
           <CenterLoading />
         </Show>
-        <Show when={networkState() == NetworkState.Success && mapLookup() != null}>
+        <Show when={networkState() === NetworkState.Success && mapLookup() != null}>
           <LevelContainer
             name="Level Builder"
             defaultBackgroundTile={levelData()?.defaultBackgroundTile ?? ''}
@@ -250,7 +272,7 @@ export const LevelBuilderPage: Component = () => {
                   selectedSpriteItem={selectedSpriteItem()}
                   selectedSpriteItemToPaste={selectedSpriteItemToPaste()}
                   layerClasses={layerClasses()}
-                  unselectSpriteItem={() => setSelectedSpriteItemToPaste(undefined)}
+                  unselectSpriteItem={unselectSpriteItems}
                 />
               </Show>
             }
@@ -279,23 +301,26 @@ export const LevelBuilderPage: Component = () => {
                   <LevelLayer
                     layer={layer}
                     additionalClasses={classNames('editor', {
-                      'not-active': index() != selectedLayerIndex(),
+                      'not-active': index() !== selectedLayerIndex(),
                     })}
                   >
                     <For each={layer?.items ?? []}>
-                      {(levelItem: ILevelTile) =>
-                        index() == selectedLayerIndex() ? (
+                      {(levelItem: ILevelTile) => (
+                        <Show
+                          when={index() === selectedLayerIndex()}
+                          fallback={
+                            <LevelItem {...levelItem} lookup={mapLookup()?.definitions ?? []} />
+                          }
+                        >
                           <LevelItem
                             {...levelItem}
                             lookup={mapLookup()?.definitions ?? []}
                             onLeftClick={() => toggleSelected(levelItem.id)}
                             onRightClick={() => removeSpriteFromMap(levelItem.id)}
-                            isActive={levelItem.id == selectedSpriteItem()}
+                            isActive={levelItem.id === selectedSpriteItem()}
                           />
-                        ) : (
-                          <LevelItem {...levelItem} lookup={mapLookup()?.definitions ?? []} />
-                        )
-                      }
+                        </Show>
+                      )}
                     </For>
                   </LevelLayer>
                 )}

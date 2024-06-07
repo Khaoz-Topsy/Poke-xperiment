@@ -17,7 +17,7 @@ export const LevelItem: Component<IProps> = (props: IProps) => {
   const [height, setHeight] = createSignal(props.height);
 
   createEffect(() => {
-    const spriteMapMeta = props.lookup.find((li) => li.type == props.type);
+    const spriteMapMeta = props.lookup.find((li) => li.type === props.type);
     if (spriteMapMeta == null) {
       return <div>Error</div>;
     }
@@ -37,7 +37,7 @@ export const LevelItem: Component<IProps> = (props: IProps) => {
   return (
     <div
       class={classNames('level-tile', props.type, {
-        'is-active': props.isActive == true,
+        'is-active': props.isActive === true,
       })}
       style={{
         top: `${props.y}px`,

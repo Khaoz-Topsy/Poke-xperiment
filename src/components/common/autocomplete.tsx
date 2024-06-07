@@ -52,7 +52,7 @@ export const Autocomplete: Component<IProps> = (props: IProps) => {
   });
 
   const onSelectOption = (selectedOpts: any) => {
-    if (Array.isArray(selectedOpts) == false) {
+    if (Array.isArray(selectedOpts) === false) {
       setSearchText(capitalizeFirstLetter(selectedOpts.toString()));
     }
     setSelectedOptions(selectedOpts);

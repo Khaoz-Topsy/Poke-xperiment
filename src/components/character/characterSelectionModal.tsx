@@ -18,6 +18,7 @@ import { CharacterInMotion } from './characterInMotion';
 
 interface ICharacterSelectionModalProps {
   charIndex: number;
+  disabled: boolean;
   scale?: number;
   selectCharacter: (charIndex: number) => void;
 }
@@ -29,7 +30,13 @@ export const CharacterSelectionModal: Component<ICharacterSelectionModalProps> =
 
   return (
     <>
-      <Button variant="ghost" p="2em 1.5em" borderRadius="1em" onClick={onOpen}>
+      <Button
+        variant="ghost"
+        p="2em 1.5em"
+        borderRadius="1em"
+        disabled={props.disabled}
+        onClick={props.disabled ? () => {} : onOpen}
+      >
         <CharacterInMotion charIndex={props.charIndex} scale={2} />
       </Button>
       <Modal opened={isOpen()} onClose={onClose}>
@@ -43,7 +50,7 @@ export const CharacterSelectionModal: Component<ICharacterSelectionModalProps> =
                 <For each={Array.from(Array(numCharacters).keys())}>
                   {(_, index) => (
                     <Button
-                      variant={index() == props.charIndex ? 'outline' : 'ghost'}
+                      variant={index() === props.charIndex ? 'outline' : 'ghost'}
                       p="2em 1.5em"
                       borderRadius="1em"
                       class="pointer"

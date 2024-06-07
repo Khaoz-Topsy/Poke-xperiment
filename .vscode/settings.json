@@ -12,6 +12,7 @@
         "bodyparser",
         "bottomsheet",
         "codegen",
+        "colnum",
         "copyfiles",
         "cyrb",
         "descrip",
@@ -32,6 +33,7 @@
         "nmscd",
         "NMSUD",
         "nojekyll",
+        "noselect",
         "openapi",
         "privacypolicytemplate",
         "pullrequest",
@@ -40,6 +42,7 @@
         "Swal",
         "sweetalert",
         "tada",
+        "tileset",
         "TLDR",
         "topbar",
         "Topsy",
@@ -47,7 +50,9 @@
         "typedi",
         "typeof",
         "uuidv",
-        "Youtuber"
+        "xperiment",
+        "Youtuber",
+        "zindex"
     ],
     "cSpell.ignorePaths": [
         "node_modules",

@@ -20,7 +20,7 @@ export class LogicService {
       const startX = Math.min(walkableSection.startX, walkableSection.endX);
       const endX = Math.max(walkableSection.startX, walkableSection.endX);
       const xCoordIsOk = dest.x <= endX && dest.x >= startX;
-      if (xCoordIsOk == false) continue;
+      if (xCoordIsOk === false) continue;
 
       const startY = Math.min(walkableSection.startY, walkableSection.endY);
       const endY = Math.max(walkableSection.startY, walkableSection.endY);
@@ -32,12 +32,12 @@ export class LogicService {
       }
     }
 
-    if (canWalkOntoTile == false) {
+    if (canWalkOntoTile === false) {
       return CharacterCanMoveState.denied;
     }
 
     for (const interaction of level.interactionTiles) {
-      if (interaction.x == dest.x && interaction.y == dest.y) {
+      if (interaction.x === dest.x && interaction.y === dest.y) {
         return CharacterCanMoveState.interaction;
       }
     }

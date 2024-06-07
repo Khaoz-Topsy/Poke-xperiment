@@ -1,4 +1,4 @@
-$layerControlWidth: 10vw;
+$layerControlWidth: 12vw;
 
 .layer-controls-container {
   position: absolute;
@@ -19,8 +19,8 @@ $layerControlWidth: 10vw;
   .layer-controls,
   .layer-details {
     width: $layerControlWidth;
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 
     span {
       opacity: 0.5;

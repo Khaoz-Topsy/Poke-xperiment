@@ -52,7 +52,7 @@ export const LevelWrapper: Component<ILevelCompProps> = (props: ILevelCompProps)
 
   return (
     <>
-      <Show when={networkState() == NetworkState.Error}>
+      <Show when={networkState() === NetworkState.Error}>
         <Flex w="100%" h="100vh" justifyContent="center" flexDirection="column" position="relative">
           <PageHeader text="Something went wrong"></PageHeader>
           <Center>
@@ -62,11 +62,11 @@ export const LevelWrapper: Component<ILevelCompProps> = (props: ILevelCompProps)
           </Center>
         </Flex>
       </Show>
-      <Show when={networkState() == NetworkState.Loading}>
+      <Show when={networkState() === NetworkState.Loading}>
         <CenterLoading />
       </Show>
       <Show
-        when={networkState() == NetworkState.Success && levelData() != null && mapLookup() != null}
+        when={networkState() === NetworkState.Success && levelData() != null && mapLookup() != null}
       >
         <LevelContainer
           name={levelData()?.name ?? 'unknown'}

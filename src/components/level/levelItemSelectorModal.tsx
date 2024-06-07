@@ -31,14 +31,15 @@ export const LevelItemSelectorModal: Component<IProps> = (props: IProps) => {
         >
           <Box class="select-sprite-item">
             <For
-              each={(props.mapLookup?.definitions ?? []).filter(
-                (m) => m.type != SpriteItemType.unknown,
-              )}
+              each={(props.mapLookup?.definitions ?? [])
+                .filter((m) => m.type != SpriteItemType.unknown)
+                .sort((a, b) => a.width + a.height - (b.width + b.height))}
             >
               {(item: ISpriteMapLookup) => (
                 <LevelControlSpriteItem
                   {...item}
-                  isActive={item.type == props.selectedSpriteItemToPaste?.type}
+                  isInGrid={true}
+                  isActive={item.type === props.selectedSpriteItemToPaste?.type}
                   onClick={(isActive, _) => {
                     props.toggleSelectedSprite(isActive, item);
                     setOpen(false);

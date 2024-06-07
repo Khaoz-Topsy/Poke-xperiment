@@ -40,7 +40,7 @@ export const CharacterController: Component<ICharacterInMotionProps> = (
   );
 
   onMount(() => {
-    useKeyboard(moveCharacter);
+    useKeyboard(handleKeybind);
 
     const isInValidPos = getLogicServ().canMove(props.levelData, progressCoords());
     if (isInValidPos === CharacterCanMoveState.denied) {
@@ -48,10 +48,15 @@ export const CharacterController: Component<ICharacterInMotionProps> = (
     }
   });
 
-  const moveCharacter = (_: unknown, keybind: KeybindLookup) => {
-    if (isMoving()) return;
-
+  const handleKeybind = (_: unknown, keybind: KeybindLookup) => {
     const direction = mapKeyBindToDirection(keybind);
+    moveCharacter(direction);
+  };
+
+  const moveCharacter = (direction: Direction) => {
+    if (isMoving()) return;
+    if (direction === Direction.none) return;
+
     const diffCoords = movementDiff[direction];
     const xDiff = diffCoords[0];
     const yDiff = diffCoords[1];
@@ -75,8 +80,9 @@ export const CharacterController: Component<ICharacterInMotionProps> = (
   };
 
   const moveCharacterAnimated = async (direction: Direction, dest: ILevelCoord) => {
+    if (direction === Direction.none) return;
     const animFrames = movementAnimations[direction];
-    const stepIndex = stepCount() % 2 == 0 ? 0 : 2;
+    const stepIndex = stepCount() % 2 === 0 ? 0 : 2;
     setDirection(direction);
     setCharAnimState(animFrames[stepIndex]);
     setIsMoving(true);
@@ -88,6 +94,7 @@ export const CharacterController: Component<ICharacterInMotionProps> = (
     await timeout(characterStepDuration / 2 - characterContinuosStepTiming);
     setCharAnimState(animFrames[0]);
     setStepCount((i) => i + 1);
+
     setIsMoving(false);
   };
 
@@ -102,6 +109,7 @@ export const CharacterController: Component<ICharacterInMotionProps> = (
         transform: `translate(${progressCoords().x * unitInPx - 2}px, ${
           progressCoords().y * unitInPx - 2
         }px)`,
+        '--sprite-item-character-zindex': 100 + progressCoords().y,
       }}
     >
       <Character charIndex={charIndex()} state={charAnimState()} />

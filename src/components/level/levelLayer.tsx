@@ -2,6 +2,7 @@ import { Component, JSX } from 'solid-js';
 
 import { ILevelLayer } from '../../contracts/levelLayer';
 import { noContextMenu } from '../../helper/documentHelper';
+import { classNames } from '@hope-ui/solid';
 
 export interface ILevelLayerProps {
   layer: ILevelLayer;
@@ -12,7 +13,7 @@ export interface ILevelLayerProps {
 export const LevelLayer: Component<ILevelLayerProps> = (props: ILevelLayerProps) => {
   return (
     <div
-      class={`level-layer ${props.layer.id} ${props.additionalClasses}`}
+      class={classNames('level-layer', props.additionalClasses)}
       data-id={props.layer.id}
       onContextMenu={noContextMenu}
     >

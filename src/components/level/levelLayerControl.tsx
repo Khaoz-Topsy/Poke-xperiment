@@ -91,7 +91,7 @@ export const LevelLayerControl: Component<ILevelLayerControlProps> = (
             {(layer: ILevelLayer, index) => (
               <div
                 class={classNames('layer-select', {
-                  'is-active': index() == props.selectedLayerIndex,
+                  'is-active': index() === props.selectedLayerIndex,
                 })}
                 onClick={() => props.setSelectedLayerIndex(index())}
                 draggable={false}
